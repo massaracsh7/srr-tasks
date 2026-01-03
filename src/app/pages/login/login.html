@@ -1,0 +1,5 @@
+    <h2>Вход</h2>
+    <label>Email: <input [(ngModel)]="email" /></label>
+    <button (click)="login()">Войти</button>
+    @if(errorMessage()){
+      <p style="color:red">{{errorMessage()}}</p>}

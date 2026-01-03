@@ -1,6 +1,9 @@
-import { signal } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { User } from '../models/models';
 
+@Injectable({
+  providedIn: 'root',
+})
 export class UserService {
   users = signal<User[]>([
     { id: 1, name: 'Ivan Ivanov', email: 'ivan@example.com', role: 'student' },
