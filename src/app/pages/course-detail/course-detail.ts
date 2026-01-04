@@ -17,6 +17,7 @@ export class CourseDetail {
 
   private coursesService = inject(Courses);
   public userService = inject(UserService);
+  public progress = signal(Math.floor(Math.random() * 100));
 
   course = signal<Course | undefined>(undefined);
 

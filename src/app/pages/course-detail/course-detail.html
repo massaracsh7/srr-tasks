@@ -11,6 +11,9 @@
       <p>Нет целей</p>
     }
   </ul>
+  @if (userService.currentUser()) { 
+    <p>Прогресс - {{ progress() }} %</p>
+  }
 
   <h3>Уроки:</h3>
   <ul>

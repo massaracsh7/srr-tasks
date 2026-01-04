@@ -1,32 +1,42 @@
 <h1>Каталог курсов</h1>
 
 <div>
-  <label
-    >Категория:
-    <select [value]="categoryFilter()" (change)="categoryFilter()">
-      <option value="">Все</option>
-      <option value="Frontend">Frontend</option>
-      <option value="Programming">Programming</option>
-    </select>
-  </label>
+<label>
+  Категория:
+  <select [value]="categoryFilter()" (change)="setCategory($event)">
+    <option value="">Все</option>
+    <option value="Frontend">Frontend</option>
+    <option value="Programming">Programming</option>
+  </select>
+</label>
 
-  <label
-    >Сложность:
-    <select [value]="difficultyFilter()" (change)="difficultyFilter()">
-      <option value="">Все</option>
-      <option value="Beginner">Начальный</option>
-      <option value="Intermediate">Средний</option>
-      <option value="Advanced">Продвинутый</option>
-    </select>
-  </label>
+<label>
+  Сложность:
+  <select [value]="difficultyFilter()" (change)="setDifficulty($event)">
+    <option value="">Все</option>
+    <option value="Beginner">Начальный</option>
+    <option value="Intermediate">Средний</option>
+    <option value="Advanced">Продвинутый</option>
+  </select>
+</label>
+
+<label>
+  Язык:
+  <select [value]="languageFilter()" (change)="setLanguage($event)">
+    <option value="">Все</option>
+    <option value="EN">EN</option>
+    <option value="RU">RU</option>
+  </select>
+</label>
+
 </div>
 
 <ul>
   @for (course of filteredCourses(); track course.id) {
-  <li>
-    <a [routerLink]="['/course', course.id]">{{ course.title }}</a>
-    — {{ course.category }}, {{ course.difficulty }}, рейтинг:
-    {{ course.rating }}, автор: {{ course.author }}
-  </li>
+    <li>
+      <a [routerLink]="['/course', course.id]">{{ course.title }}</a>
+      — {{ course.category }}, {{ course.difficulty }}, {{ course.language }},
+      рейтинг: {{ course.rating }}, автор: {{ course.author }}
+    </li>
   }
 </ul>
