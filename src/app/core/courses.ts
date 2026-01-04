@@ -17,8 +17,8 @@ export class Courses {
       description: 'Learn Angular 20 from scratch',
       goals: ['Components', 'Signals', 'Routing'],
       lessons: [
-        { id: 1, title: 'Components', videoUrl: 'https://www.example.com/video1' },
-        { id: 2, title: 'Signals', videoUrl: 'https://www.example.com/video2' }
+        { id: 1, title: 'Components', videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4' },
+        { id: 2, title: 'Signals', videoUrl: 'https://www.w3schools.com/html/movie.mp4' }
       ]
     },
     {
@@ -32,8 +32,8 @@ export class Courses {
       description: 'Deep dive into TypeScript',
       goals: ['Generics', 'Decorators', 'Utility Types'],
       lessons: [
-        { id: 1, title: 'Generics', videoUrl: 'https://www.example.com/video3' },
-        { id: 2, title: 'Decorators', videoUrl: 'https://www.example.com/video4' }
+        { id: 1, title: 'Generics', videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4' },
+        { id: 2, title: 'Decorators', videoUrl: 'https://www.w3schools.com/html/movie.mp4' }
       ]
     }
   ]);

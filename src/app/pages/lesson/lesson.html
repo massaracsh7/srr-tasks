@@ -1,0 +1,13 @@
+@if (lesson(); as l) {
+<h2>{{l.title}}</h2>
+  <video controls [attr.key]="l.id" autoplay>
+    <source [src]="l.videoUrl" type="video/mp4" />
+  </video>
+} @else {
+  <p>Загрузка урока…</p>
+}
+
+    <div>
+      <button (click)="goBack()">Вернуться к курсу</button>
+      <button (click)="nextLesson()">Следующий урок</button>
+    </div>

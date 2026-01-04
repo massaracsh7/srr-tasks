@@ -1,21 +1,29 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, input, signal, effect } from '@angular/core';
 import { Courses } from '../../core/courses';
 import { UserService } from '../../core/user';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Course } from '../../models/models';
 
 @Component({
   selector: 'app-course-detail',
+  standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './course-detail.html',
   styleUrl: './course-detail.scss',
 })
 export class CourseDetail {
   id = input.required<string>();
-  private courseService = inject(Courses);
+
+  private coursesService = inject(Courses);
   public userService = inject(UserService);
-  private route = inject(ActivatedRoute);
 
-  course = signal(this.courseService.getCourseById(Number(this.id)));
+  course = signal<Course | undefined>(undefined);
 
+  constructor() {
+    effect(() => {
+      const courseId = Number(this.id());
+      this.course.set(this.coursesService.getCourseById(courseId));
+    });
+  }
 }

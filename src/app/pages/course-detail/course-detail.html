@@ -1,24 +1,30 @@
-<h2>{{ course()?.title }}</h2>
-<p>{{ course()?.description }}</p>
+@if (course(); as c) {
 
-<h3>Цели курса:</h3>
-<ul>
-  @for(goal of course()?.goals; track goal){
-  <li>{{ goal }}</li>
-  } @empty {
-  <p>Нет целей</p>
-  }
-</ul>
+  <h2>{{ c.title }}</h2>
+  <p>{{ c.description }}</p>
 
-<h3>Уроки:</h3>
-<ul>
-  @for(lesson of course()?.lessons; track lesson.id) {
-  <li>
-    <a [routerLink]="['/lesson', course()?.id, lesson.id]">{{
-      lesson.title
-    }}</a>
-  </li>
-  } @empty {
-  <p>Нет уроков</p>
-  }
-</ul>
+  <h3>Цели курса:</h3>
+  <ul>
+    @for (goal of c.goals; track goal) {
+      <li>{{ goal }}</li>
+    } @empty {
+      <p>Нет целей</p>
+    }
+  </ul>
+
+  <h3>Уроки:</h3>
+  <ul>
+    @for (lesson of c.lessons; track lesson.id) {
+      <li>
+        <a [routerLink]="['/course', c.id, lesson.id]">
+          {{ lesson.title }}
+        </a>
+      </li>
+    } @empty {
+      <p>Нет уроков</p>
+    }
+  </ul>
+
+} @else {
+  <p>Загрузка курса…</p>
+}
