@@ -1,0 +1,37 @@
+    @if(userService.currentUser()?.role === 'teacher') {
+
+      <h2>Создание нового курса</h2>
+
+      <form [formGroup]="form" (ngSubmit)="saveCourse()">
+        <label>
+          Название курса:
+          <input type="text" formControlName="title" />
+        </label>
+        @if(form.get('title')?.invalid && form.get('title')?.touched) {
+          <p style="color:red">Название обязательно</p>
+        }
+
+        <label>
+          Описание:
+          <textarea formControlName="description"></textarea>
+        </label>
+        @if(form.get('description')?.invalid && form.get('description')?.touched) {
+          <p style="color:red">Описание обязательно</p>
+        }
+
+        <label>
+          Цели курса (через запятую):
+          <input type="text" formControlName="goals" placeholder="Например: Компоненты, Сигналы" />
+        </label>
+
+        <label>
+          Уроки курса (через запятую):
+          <input type="text" formControlName="lessons" placeholder="Например: Урок 1, Урок 2" />
+        </label>
+
+        <button type="submit" [disabled]="form.invalid">Сохранить</button>
+      </form>
+
+    } @else {
+      <p style="color:red">Доступ запрещён. Только учитель может создавать курс.</p>
+    }
