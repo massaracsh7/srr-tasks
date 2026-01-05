@@ -1,0 +1,49 @@
+{
+  "HOME": {
+    "TITLE": "Course catalog",
+    "CATEGORY": "Category",
+    "DIFFICULTY": "Difficulty",
+    "LANGUAGE": "Language"
+  },
+  "COMMON": {
+    "ALL": "All",
+    "RATING": "Rating",
+    "AUTHOR": "Author",
+    "CREATE_COURSE": "Create course",
+    "LOGOUT": "Logout",
+    "LOGIN": "Login"
+  },
+  "DIFFICULTY": {
+    "BEGINNER": "Beginner",
+    "INTERMEDIATE": "Intermediate",
+    "ADVANCED": "Advanced"
+  },
+  "PROFILE": {
+    "TITLE": "Profile",
+    "LANGUAGE": "Interface language",
+    "NOT_AUTH": "You are not authorized"
+  },
+   "COURSE": {
+    "LOADING": "Loading course…",
+    "GOALS_TITLE": "Course goals:",
+    "LESSONS_TITLE": "Lessons:",
+    "NO_GOALS": "No goals",
+    "NO_LESSONS": "No lessons",
+    "PROGRESS": "Progress - {{progress}} %",
+    "NEW_COURSE_TITLE": "Create new course",
+    "TITLE_LABEL": "Course title:",
+    "TITLE_REQUIRED": "Title is required",
+    "DESCRIPTION_LABEL": "Description:",
+    "DESCRIPTION_REQUIRED": "Description is required",
+    "GOALS_LABEL": "Course goals (comma separated):",
+    "LESSONS_LABEL": "Lessons (comma separated):",
+    "SAVE": "Save",
+    "ACCESS_DENIED": "Access denied. Only teacher can create a course."
+  },
+    "LOGIN": {
+    "TITLE": "Login",
+    "EMAIL": "Email",
+    "BUTTON": "Login",
+    "ERROR": "Error: {{error}}"
+  }
+}

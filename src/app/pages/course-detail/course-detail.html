@@ -3,31 +3,30 @@
   <h2>{{ c.title }}</h2>
   <p>{{ c.description }}</p>
 
-  <h3>Цели курса:</h3>
+  <h3>{{ 'COURSE.GOALS_TITLE' | translate }}</h3>
   <ul>
     @for (goal of c.goals; track goal) {
       <li>{{ goal }}</li>
     } @empty {
-      <p>Нет целей</p>
+      <p>{{ 'COURSE.NO_GOALS' | translate }}</p>
     }
   </ul>
+
   @if (userService.currentUser()) { 
-    <p>Прогресс - {{ progress() }} %</p>
+    <p>{{ 'COURSE.PROGRESS' | translate:{ progress: progress() } }}</p>
   }
 
-  <h3>Уроки:</h3>
+  <h3>{{ 'COURSE.LESSONS_TITLE' | translate }}</h3>
   <ul>
     @for (lesson of c.lessons; track lesson.id) {
       <li>
-        <a [routerLink]="['/course', c.id, lesson.id]">
-          {{ lesson.title }}
-        </a>
+        <a [routerLink]="['/course', c.id, lesson.id]">{{ lesson.title }}</a>
       </li>
     } @empty {
-      <p>Нет уроков</p>
+      <p>{{ 'COURSE.NO_LESSONS' | translate }}</p>
     }
   </ul>
 
 } @else {
-  <p>Загрузка курса…</p>
+  <p>{{ 'COURSE.LOADING' | translate }}</p>
 }

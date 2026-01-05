@@ -2,10 +2,12 @@ import { Component, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../../core/user';
+import { TranslatePipe } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule],
+  imports: [FormsModule, TranslatePipe],
   templateUrl: './login.html',
   styleUrl: './login.scss',
   standalone: true

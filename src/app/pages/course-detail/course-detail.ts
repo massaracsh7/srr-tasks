@@ -4,11 +4,12 @@ import { UserService } from '../../core/user';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Course } from '../../models/models';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-course-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, TranslatePipe],
   templateUrl: './course-detail.html',
   styleUrl: './course-detail.scss',
 })

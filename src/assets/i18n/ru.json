@@ -1,0 +1,50 @@
+{
+  "HOME": {
+    "TITLE": "Каталог курсов",
+    "CATEGORY": "Категория",
+    "DIFFICULTY": "Сложность",
+    "LANGUAGE": "Язык"
+  },
+  "COMMON": {
+    "ALL": "Все",
+    "RATING": "Рейтинг",
+    "AUTHOR": "Автор",
+    "CREATE_COURSE": "Создать курс",
+    "LOGOUT": "Выйти",
+    "LOGIN": "Вход"
+  },
+  "DIFFICULTY": {
+    "BEGINNER": "Начальный",
+    "INTERMEDIATE": "Средний",
+    "ADVANCED": "Продвинутый"
+  },
+  "PROFILE": {
+    "TITLE": "Профиль",
+    "LANGUAGE": "Язык интерфейса",
+    "NOT_AUTH": "Вы не авторизованы"
+  },
+    "COURSE": {
+    "LOADING": "Загрузка курса…",
+    "GOALS_TITLE": "Цели курса:",
+    "LESSONS_TITLE": "Уроки:",
+    "NO_GOALS": "Нет целей",
+    "NO_LESSONS": "Нет уроков",
+    "PROGRESS": "Прогресс - {{progress}} %",
+    "NEW_COURSE_TITLE": "Создание нового курса",
+    "TITLE_LABEL": "Название курса:",
+    "TITLE_REQUIRED": "Название обязательно",
+    "DESCRIPTION_LABEL": "Описание:",
+    "DESCRIPTION_REQUIRED": "Описание обязательно",
+    "GOALS_LABEL": "Цели курса (через запятую):",
+    "LESSONS_LABEL": "Уроки курса (через запятую):",
+    "SAVE": "Сохранить",
+    "ACCESS_DENIED": "Доступ запрещён. Только учитель может создавать курс."
+  },
+    "LOGIN": {
+    "TITLE": "Вход",
+    "EMAIL": "Email",
+    "BUTTON": "Войти",
+    "ERROR": "Ошибка: {{error}}"
+  }
+
+}

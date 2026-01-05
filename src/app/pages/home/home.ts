@@ -2,11 +2,13 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { Courses } from '../../core/courses';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, CommonModule, TranslatePipe],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })

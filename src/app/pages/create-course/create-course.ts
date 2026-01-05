@@ -2,10 +2,11 @@ import { Component, inject } from '@angular/core';
 import { UserService } from '../../core/user';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-create-course',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, TranslatePipe],
   templateUrl: './create-course.html',
   styleUrl: './create-course.scss',
   standalone: true

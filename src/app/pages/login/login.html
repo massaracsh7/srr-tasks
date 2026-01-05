@@ -1,5 +1,11 @@
-    <h2>Вход</h2>
-    <label>Email: <input [(ngModel)]="email" /></label>
-    <button (click)="login()">Войти</button>
-    @if(errorMessage()){
-      <p style="color:red">{{errorMessage()}}</p>}
+<h2>{{ 'LOGIN.TITLE' | translate }}</h2>
+
+<label>{{ 'LOGIN.EMAIL' | translate }}: 
+  <input [(ngModel)]="email" />
+</label>
+
+<button (click)="login()">{{ 'LOGIN.BUTTON' | translate }}</button>
+
+@if(errorMessage()) {
+  <p style="color:red">{{ 'LOGIN.ERROR' | translate:{ error: errorMessage() } }}</p>
+}

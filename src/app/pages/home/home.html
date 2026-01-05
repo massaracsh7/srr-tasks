@@ -1,42 +1,53 @@
-<h1>Каталог курсов</h1>
+<h1>{{ 'HOME.TITLE' | translate }}</h1>
 
 <div>
-<label>
-  Категория:
-  <select [value]="categoryFilter()" (change)="setCategory($event)">
-    <option value="">Все</option>
-    <option value="Frontend">Frontend</option>
-    <option value="Programming">Programming</option>
-  </select>
-</label>
+  <label>
+    {{ 'HOME.CATEGORY' | translate }}:
+    <select [value]="categoryFilter()" (change)="setCategory($event)">
+      <option value="">{{ 'COMMON.ALL' | translate }}</option>
+      <option value="Frontend">Frontend</option>
+      <option value="Programming">Programming</option>
+    </select>
+  </label>
 
-<label>
-  Сложность:
-  <select [value]="difficultyFilter()" (change)="setDifficulty($event)">
-    <option value="">Все</option>
-    <option value="Beginner">Начальный</option>
-    <option value="Intermediate">Средний</option>
-    <option value="Advanced">Продвинутый</option>
-  </select>
-</label>
+  <label>
+    {{ 'HOME.DIFFICULTY' | translate }}:
+    <select [value]="difficultyFilter()" (change)="setDifficulty($event)">
+      <option value="">{{ 'COMMON.ALL' | translate }}</option>
+      <option value="Beginner">
+        {{ 'DIFFICULTY.BEGINNER' | translate }}
+      </option>
+      <option value="Intermediate">
+        {{ 'DIFFICULTY.INTERMEDIATE' | translate }}
+      </option>
+      <option value="Advanced">
+        {{ 'DIFFICULTY.ADVANCED' | translate }}
+      </option>
+    </select>
+  </label>
 
-<label>
-  Язык:
-  <select [value]="languageFilter()" (change)="setLanguage($event)">
-    <option value="">Все</option>
-    <option value="EN">EN</option>
-    <option value="RU">RU</option>
-  </select>
-</label>
-
+  <label>
+    {{ 'HOME.LANGUAGE' | translate }}:
+    <select [value]="languageFilter()" (change)="setLanguage($event)">
+      <option value="">{{ 'COMMON.ALL' | translate }}</option>
+      <option value="EN">EN</option>
+      <option value="RU">RU</option>
+    </select>
+  </label>
 </div>
 
 <ul>
   @for (course of filteredCourses(); track course.id) {
     <li>
-      <a [routerLink]="['/course', course.id]">{{ course.title }}</a>
-      — {{ course.category }}, {{ course.difficulty }}, {{ course.language }},
-      рейтинг: {{ course.rating }}, автор: {{ course.author }}
+      <a [routerLink]="['/course', course.id]">
+        {{ course.title }}
+      </a>
+      —
+      {{ course.category }},
+      {{ course.difficulty }},
+      {{ course.language }},
+      {{ 'COMMON.RATING' | translate }}: {{ course.rating }},
+      {{ 'COMMON.AUTHOR' | translate }}: {{ course.author }}
     </li>
   }
 </ul>

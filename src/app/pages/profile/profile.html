@@ -1,13 +1,13 @@
-    @if(userService.currentUser()) {
-      <h2>Профиль: {{userService.currentUser()?.name}}</h2>
-      <p>Email: {{userService.currentUser()?.email}}</p>
+@if(userService.currentUser()) {
+  <h2>{{ 'PROFILE.TITLE' | translate }}: {{ userService.currentUser()?.name }}</h2>
+  <p>Email: {{ userService.currentUser()?.email }}</p>
 
-      <label>Язык интерфейса:
-        <select [(ngModel)]="currentLang">
-          <option value="EN">English</option>
-          <option value="RU">Русский</option>
-        </select>
-      </label>}
-    @else {
-      <p>Не авторизованы</p>
-    }
+  <label>{{ 'PROFILE.LANGUAGE' | translate }}:
+    <select [value]="currentLang()" (change)="setLanguage($any($event.target).value)">
+      <option value="EN" [selected]="currentLang() === 'EN'">English</option>
+      <option value="RU" [selected]="currentLang() === 'RU'">Русский</option>
+    </select>
+  </label>
+} @else {
+  <p>{{ 'PROFILE.NOT_AUTH' | translate }}</p>
+}
