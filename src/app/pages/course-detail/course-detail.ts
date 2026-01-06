@@ -7,11 +7,12 @@ import { Course } from '../../models/models';
 import { TranslatePipe } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
 import { ProgressBarModule } from 'primeng/progressbar';
+import { HighlightNewLesson } from '../../shared/directives/highlight-new-lesson';
 
 @Component({
   selector: 'app-course-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink, TranslatePipe, CardModule, ProgressBarModule],
+  imports: [CommonModule, RouterLink, TranslatePipe, CardModule, ProgressBarModule, HighlightNewLesson],
   templateUrl: './course-detail.html',
   styleUrl: './course-detail.scss',
 })

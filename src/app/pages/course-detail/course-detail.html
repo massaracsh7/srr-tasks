@@ -1,32 +1,34 @@
 @if (course(); as c) {
-  <p-card [header]="c.title" styleClass="course-card">
-    <p>{{ c.description }}</p>
+<p-card [header]="c.title" styleClass="course-card">
+  <p>{{ c.description }}</p>
 
-    <h3>{{ 'COURSE.GOALS_TITLE' | translate }}</h3>
-    <ul>
-      @for (goal of c.goals; track goal) {
-        <li>{{ goal }}</li>
-      } @empty {
-        <p>{{ 'COURSE.NO_GOALS' | translate }}</p>
-      }
-    </ul>
-
-    @if (userService.currentUser()) { 
-      <p>{{ 'COURSE.PROGRESS' | translate:{ progress: progress() } }}</p>
-      <p-progressBar [value]="progress()" [showValue]="true"></p-progressBar>
+  <h3>{{ "COURSE.GOALS_TITLE" | translate }}</h3>
+  <ul>
+    @for (goal of c.goals; track goal) {
+    <li>{{ goal }}</li>
+    } @empty {
+    <p>{{ "COURSE.NO_GOALS" | translate }}</p>
     }
+  </ul>
 
-    <h3>{{ 'COURSE.LESSONS_TITLE' | translate }}</h3>
-    <ul>
-      @for (lesson of c.lessons; track lesson.id) {
-        <li>
-          <a [routerLink]="['/course', c.id, lesson.id]">{{ lesson.title }}</a>
-        </li>
-      } @empty {
-        <p>{{ 'COURSE.NO_LESSONS' | translate }}</p>
-      }
-    </ul>
-  </p-card>
+  @if (userService.currentUser()) {
+  <p>{{ "COURSE.PROGRESS" | translate : { progress: progress() } }}</p>
+  <p-progressBar [value]="progress()" [showValue]="true"></p-progressBar>
+  }
+
+  <h3>{{ "COURSE.LESSONS_TITLE" | translate }}</h3>
+
+  <div class="p-grid p-mt-3">
+    @for (lesson of c.lessons; track lesson.id) {
+    <div class="p-col-12 p-md-6 p-lg-4">
+      <p-card class="lesson-card" [appHighlightNewLesson]="!lesson.completed"   [animate.enter]="'fade-enter'"
+  [animate.leave]="'fade-leave'">
+        <a [routerLink]="['/course', c.id, lesson.id]">{{ lesson.title }}</a>
+      </p-card>
+    </div>
+    }
+  </div>
+</p-card>
 } @else {
-  <p>{{ 'COURSE.LOADING' | translate }}</p>
+<p>{{ "COURSE.LOADING" | translate }}</p>
 }

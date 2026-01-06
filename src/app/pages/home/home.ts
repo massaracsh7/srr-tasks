@@ -1,5 +1,4 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { SelectModule } from 'primeng/select';
@@ -15,7 +14,6 @@ import { CourseCard } from './course-card/course-card';
   standalone: true,
   imports: [
     CommonModule,
-    RouterLink,
     FormsModule,
     TranslatePipe,
     SelectModule,
