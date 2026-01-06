@@ -6,6 +6,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule  } from 'primeng/textarea';
 import { ButtonModule } from 'primeng/button';
+import { AutoFocus } from '../../shared/directives/auto-focus';
 
 @Component({
   selector: 'app-create-course',
@@ -16,7 +17,8 @@ import { ButtonModule } from 'primeng/button';
     TranslatePipe,
     InputTextModule,
     TextareaModule ,
-    ButtonModule
+    ButtonModule,
+    AutoFocus
   ],
   templateUrl: './create-course.html',
   styleUrl: './create-course.scss',

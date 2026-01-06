@@ -6,7 +6,7 @@
     <form [formGroup]="form" (ngSubmit)="saveCourse()" class="p-fluid">
       <div class="p-field">
         <label for="title">{{ 'COURSE.TITLE_LABEL' | translate }}</label>
-        <input id="title" pInputText formControlName="title" />
+        <input id="title" pInputText formControlName="title" appAutoFocus/>
         @if(form.get('title')?.invalid && form.get('title')?.touched) {
           <p style="color:red">{{ 'COURSE.TITLE_REQUIRED' | translate }}</p>
         }
@@ -14,7 +14,7 @@
 
       <div class="p-field">
         <label for="description">{{ 'COURSE.DESCRIPTION_LABEL' | translate }}</label>
-        <textarea id="description" pTextarea formControlName="description"></textarea>
+        <textarea id="description" pTextarea formControlName="description" appAutoFocus></textarea>
         @if(form.get('description')?.invalid && form.get('description')?.touched) {
           <p style="color:red">{{ 'COURSE.DESCRIPTION_REQUIRED' | translate }}</p>
         }
@@ -22,12 +22,12 @@
 
       <div class="p-field">
         <label for="goals">{{ 'COURSE.GOALS_LABEL' | translate }}</label>
-        <input id="goals" pInputText formControlName="goals" />
+        <input id="goals" pInputText formControlName="goals" appAutoFocus/>
       </div>
 
       <div class="p-field">
         <label for="lessons">{{ 'COURSE.LESSONS_LABEL' | translate }}</label>
-        <input id="lessons" pInputText formControlName="lessons" />
+        <input id="lessons" pInputText formControlName="lessons" appAutoFocus/>
       </div>
 
       <div class="p-field">
