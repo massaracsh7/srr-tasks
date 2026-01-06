@@ -1,54 +1,41 @@
 <h1>{{ 'HOME.TITLE' | translate }}</h1>
 
-<div class="filters grid gap-3 mb-3">
+<div class="filters">
   <p-select
-    class="col-12 md:col-4"
     [options]="categories"
     [showClear]="true"
+    optionLabel="label"
+    optionValue="value"
     [placeholder]="'HOME.CATEGORY' | translate"
-    [(ngModel)]="category">
+    [ngModel]="category()"
+    (ngModelChange)="category.set($event)">
   </p-select>
 
   <p-select
-    class="col-12 md:col-4"
     [options]="difficulties"
     [showClear]="true"
+    optionLabel="label"
+    optionValue="value"
     [placeholder]="'HOME.DIFFICULTY' | translate"
-    [(ngModel)]="difficulty">
+    [ngModel]="difficulty()"
+    (ngModelChange)="difficulty.set($event)">
   </p-select>
 
   <p-select
-    class="col-12 md:col-4"
     [options]="languages"
     [showClear]="true"
+    optionLabel="label"
+    optionValue="value"
     [placeholder]="'HOME.LANGUAGE' | translate"
-    [(ngModel)]="language">
+    [ngModel]="language()"
+    (ngModelChange)="language.set($event)">
   </p-select>
 </div>
 
-<div class="course-list grid">
+<div class="course-list p-grid p-mt-3">
   @for (course of filteredCourses(); track course.id) {
-    <div class="col-12 md:col-6 lg:col-4">
-      <p-card [header]="course.title" class="mb-3">
-        <p>{{ course.description }}</p>
-
-        <p class="text-sm">
-          {{ 'HOME.CATEGORY' | translate }}: {{ course.category }} <br />
-          {{ 'HOME.DIFFICULTY' | translate }}: {{ course.difficulty }} <br />
-          {{ 'HOME.LANGUAGE' | translate }}: {{ course.language }} <br />
-          {{ 'COMMON.RATING' | translate }}: {{ course.rating }} <br />
-          {{ 'COMMON.AUTHOR' | translate }}: {{ course.author }}
-        </p>
-
-        <a [routerLink]="['/course', course.id]">
-          <button
-            pButton
-            type="button"
-            label="Open"
-            class="p-button-outlined w-full">
-          </button>
-        </a>
-      </p-card>
+    <div class="p-col-12 p-md-6 p-lg-4">
+      <app-course-card [course]="course" />
     </div>
   }
 </div>

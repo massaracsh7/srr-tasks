@@ -1,0 +1,43 @@
+@if (course(); as c) {
+
+  <div
+    class="course-card-wrapper"
+    [animate.enter]="'fade-enter'"
+    [animate.leave]="'fade-leave'">
+
+    <p-card [header]="c.title" class="p-mb-3">
+
+      <button
+        pButton
+        type="button"
+        label="Toggle Card"
+        class="p-mb-2"
+        (click)="toggle()">
+      </button>
+
+      @if (isShown()) {
+        <p>
+          {{ 'HOME.CATEGORY' | translate }}: {{ c.category }} <br>
+          {{ 'HOME.DIFFICULTY' | translate }}: {{ c.difficulty }} <br>
+          {{ 'HOME.LANGUAGE' | translate }}: {{ c.language }} <br>
+          {{ 'COMMON.RATING' | translate }}: {{ c.rating }} <br>
+          {{ 'COMMON.AUTHOR' | translate }}: {{ c.author }}
+        </p>
+
+        <a [routerLink]="['/course', c.id]">
+          <button
+            pButton
+            type="button"
+            label="More info"
+            class="p-button-outlined">
+          </button>
+        </a>
+      }
+
+    </p-card>
+
+  </div>
+
+} @else {
+  <p>Loading…</p>
+}

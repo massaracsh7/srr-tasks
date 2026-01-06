@@ -4,11 +4,17 @@ import { CommonModule } from '@angular/common';
 import { Courses } from '../../core/courses';
 import { Course, Lesson as LessonModel } from '../../models/models';
 import { ButtonModule } from 'primeng/button';
+import { KeyboardLessonNavDirective } from '../../shared/directives/keyboard-lesson-nav';
+import { SafeTitlePipe } from '../../shared/pipes/safe-title-pipe';
+import { HasNextLessonPipe } from '../../shared/pipes/has-next-lesson-pipe';
 
 @Component({
   selector: 'app-lesson',
   standalone: true,
-  imports: [CommonModule, ButtonModule],
+  imports: [CommonModule, ButtonModule, KeyboardLessonNavDirective,
+    SafeTitlePipe,
+    HasNextLessonPipe,
+],
   templateUrl: './lesson.html',
   styleUrl: './lesson.scss',
 })

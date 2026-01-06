@@ -8,6 +8,7 @@ import { Courses } from '../../core/courses';
 import { FormsModule } from '@angular/forms';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
+import { CourseCard } from './course-card/course-card';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,8 @@ import { ButtonModule } from 'primeng/button';
     FormsModule,
     TranslatePipe,
     SelectModule,
-    CardModule, ButtonModule
+    CardModule, ButtonModule,
+    CourseCard
   ],
   templateUrl: './home.html',
   styleUrl: './home.scss',
