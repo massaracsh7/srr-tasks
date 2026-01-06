@@ -45,6 +45,14 @@
     "EMAIL": "Email",
     "BUTTON": "Войти",
     "ERROR": "Ошибка: {{error}}"
-  }
+  },
+  "CATEGORY": {
+  "Frontend": "Фронтенд",
+  "Programming": "Программирование"
+},
+"LANG": {
+  "EN": "Английский",
+  "RU": "Русский"
+}
 
 }

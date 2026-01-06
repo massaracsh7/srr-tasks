@@ -3,11 +3,12 @@ import { UserService } from '../../core/user';
 import { FormsModule } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
 import { I18nService } from '../../core/i18n-service';
+import { SelectModule } from 'primeng/select';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [FormsModule, TranslatePipe],
+  imports: [FormsModule, TranslatePipe, SelectModule],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
 })

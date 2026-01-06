@@ -1,11 +1,16 @@
 <h2>{{ 'LOGIN.TITLE' | translate }}</h2>
 
-<label>{{ 'LOGIN.EMAIL' | translate }}: 
-  <input [(ngModel)]="email" />
-</label>
+<div class="login-form p-fluid">
+  <div class="p-field">
+    <label for="email">{{ 'LOGIN.EMAIL' | translate }}</label>
+    <input id="email" pInputText [(ngModel)]="email" />
+  </div>
 
-<button (click)="login()">{{ 'LOGIN.BUTTON' | translate }}</button>
+  <div class="p-field">
+    <button pButton type="button" label="{{ 'LOGIN.BUTTON' | translate }}" (click)="login()"></button>
+  </div>
 
-@if(errorMessage()) {
-  <p style="color:red">{{ 'LOGIN.ERROR' | translate:{ error: errorMessage() } }}</p>
-}
+  @if(errorMessage()) {
+    <p-message severity="error" text="{{ 'LOGIN.ERROR' | translate:{ error: errorMessage() } }}"></p-message>
+  }
+</div>

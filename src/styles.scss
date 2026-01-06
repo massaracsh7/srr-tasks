@@ -1,1 +1,89 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'primeflex/primeflex.css';
+@import 'primeicons/primeicons.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 16px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+  color: #222;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+ul, ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+a {
+  color: #007ad9;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+button {
+  cursor: pointer;
+}
+
+.p-fluid .p-field {
+  margin-bottom: 1rem;
+}
+
+.p-card {
+  margin-bottom: 1rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-1 { margin-top: 0.25rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-3 { margin-top: 1rem; }
+.mt-4 { margin-top: 1.5rem; }
+
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-3 { margin-bottom: 1rem; }
+.mb-4 { margin-bottom: 1.5rem; }
+
+.p-1 { padding: 0.25rem; }
+.p-2 { padding: 0.5rem; }
+.p-3 { padding: 1rem; }
+.p-4 { padding: 1.5rem; }
+
+label { padding: 1rem; }
+
+main {
+    padding: 2rem;
+}
+
+.create-course-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}

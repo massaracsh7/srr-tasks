@@ -45,7 +45,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumError": "5MB"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -95,7 +95,10 @@
                 "output": "/assets"
               }
             ],
-            "styles": ["src/styles.scss"]
+            "styles": [  "node_modules/primeng/resources/themes/saga-blue/theme.css",
+  "node_modules/primeng/resources/primeng.min.css",
+  "node_modules/primeicons/primeicons.css",
+  "src/styles.scss"]
           }
         }
       }

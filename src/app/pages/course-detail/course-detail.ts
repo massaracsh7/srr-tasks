@@ -5,11 +5,13 @@ import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Course } from '../../models/models';
 import { TranslatePipe } from '@ngx-translate/core';
+import { CardModule } from 'primeng/card';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 @Component({
   selector: 'app-course-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink, TranslatePipe],
+  imports: [CommonModule, RouterLink, TranslatePipe, CardModule, ProgressBarModule],
   templateUrl: './course-detail.html',
   styleUrl: './course-detail.scss',
 })

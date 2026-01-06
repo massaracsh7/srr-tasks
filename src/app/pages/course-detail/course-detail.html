@@ -1,32 +1,32 @@
 @if (course(); as c) {
+  <p-card [header]="c.title" styleClass="course-card">
+    <p>{{ c.description }}</p>
 
-  <h2>{{ c.title }}</h2>
-  <p>{{ c.description }}</p>
+    <h3>{{ 'COURSE.GOALS_TITLE' | translate }}</h3>
+    <ul>
+      @for (goal of c.goals; track goal) {
+        <li>{{ goal }}</li>
+      } @empty {
+        <p>{{ 'COURSE.NO_GOALS' | translate }}</p>
+      }
+    </ul>
 
-  <h3>{{ 'COURSE.GOALS_TITLE' | translate }}</h3>
-  <ul>
-    @for (goal of c.goals; track goal) {
-      <li>{{ goal }}</li>
-    } @empty {
-      <p>{{ 'COURSE.NO_GOALS' | translate }}</p>
+    @if (userService.currentUser()) { 
+      <p>{{ 'COURSE.PROGRESS' | translate:{ progress: progress() } }}</p>
+      <p-progressBar [value]="progress()" [showValue]="true"></p-progressBar>
     }
-  </ul>
 
-  @if (userService.currentUser()) { 
-    <p>{{ 'COURSE.PROGRESS' | translate:{ progress: progress() } }}</p>
-  }
-
-  <h3>{{ 'COURSE.LESSONS_TITLE' | translate }}</h3>
-  <ul>
-    @for (lesson of c.lessons; track lesson.id) {
-      <li>
-        <a [routerLink]="['/course', c.id, lesson.id]">{{ lesson.title }}</a>
-      </li>
-    } @empty {
-      <p>{{ 'COURSE.NO_LESSONS' | translate }}</p>
-    }
-  </ul>
-
+    <h3>{{ 'COURSE.LESSONS_TITLE' | translate }}</h3>
+    <ul>
+      @for (lesson of c.lessons; track lesson.id) {
+        <li>
+          <a [routerLink]="['/course', c.id, lesson.id]">{{ lesson.title }}</a>
+        </li>
+      } @empty {
+        <p>{{ 'COURSE.NO_LESSONS' | translate }}</p>
+      }
+    </ul>
+  </p-card>
 } @else {
   <p>{{ 'COURSE.LOADING' | translate }}</p>
 }

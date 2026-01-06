@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Courses } from '../../core/courses';
 import { Course, Lesson as LessonModel } from '../../models/models';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-lesson',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ButtonModule],
   templateUrl: './lesson.html',
   styleUrl: './lesson.scss',
 })

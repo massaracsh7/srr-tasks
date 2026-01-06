@@ -3,13 +3,23 @@ import { UserService } from '../../core/user';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { InputTextModule } from 'primeng/inputtext';
+import { TextareaModule  } from 'primeng/textarea';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-create-course',
-  imports: [CommonModule, ReactiveFormsModule, TranslatePipe],
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    TranslatePipe,
+    InputTextModule,
+    TextareaModule ,
+    ButtonModule
+  ],
   templateUrl: './create-course.html',
   styleUrl: './create-course.scss',
-  standalone: true
 })
 export class CreateCourse {
   userService = inject(UserService);

@@ -1,37 +1,41 @@
-@if(userService.currentUser()?.role === 'teacher') {
+<div class="create-course-container">
+  @if(userService.currentUser()?.role === 'teacher') {
 
-  <h2>{{ 'COURSE.NEW_COURSE_TITLE' | translate }}</h2>
+    <h2>{{ 'COURSE.NEW_COURSE_TITLE' | translate }}</h2>
 
-  <form [formGroup]="form" (ngSubmit)="saveCourse()">
-    <label>
-      {{ 'COURSE.TITLE_LABEL' | translate }}
-      <input type="text" formControlName="title" />
-    </label>
-    @if(form.get('title')?.invalid && form.get('title')?.touched) {
-      <p style="color:red">{{ 'COURSE.TITLE_REQUIRED' | translate }}</p>
-    }
+    <form [formGroup]="form" (ngSubmit)="saveCourse()" class="p-fluid">
+      <div class="p-field">
+        <label for="title">{{ 'COURSE.TITLE_LABEL' | translate }}</label>
+        <input id="title" pInputText formControlName="title" />
+        @if(form.get('title')?.invalid && form.get('title')?.touched) {
+          <p style="color:red">{{ 'COURSE.TITLE_REQUIRED' | translate }}</p>
+        }
+      </div>
 
-    <label>
-      {{ 'COURSE.DESCRIPTION_LABEL' | translate }}
-      <textarea formControlName="description"></textarea>
-    </label>
-    @if(form.get('description')?.invalid && form.get('description')?.touched) {
-      <p style="color:red">{{ 'COURSE.DESCRIPTION_REQUIRED' | translate }}</p>
-    }
+      <div class="p-field">
+        <label for="description">{{ 'COURSE.DESCRIPTION_LABEL' | translate }}</label>
+        <textarea id="description" pTextarea formControlName="description"></textarea>
+        @if(form.get('description')?.invalid && form.get('description')?.touched) {
+          <p style="color:red">{{ 'COURSE.DESCRIPTION_REQUIRED' | translate }}</p>
+        }
+      </div>
 
-    <label>
-      {{ 'COURSE.GOALS_LABEL' | translate }}
-      <input type="text" formControlName="goals" placeholder="Например: Компоненты, Сигналы" />
-    </label>
+      <div class="p-field">
+        <label for="goals">{{ 'COURSE.GOALS_LABEL' | translate }}</label>
+        <input id="goals" pInputText formControlName="goals" />
+      </div>
 
-    <label>
-      {{ 'COURSE.LESSONS_LABEL' | translate }}
-      <input type="text" formControlName="lessons" placeholder="Например: Урок 1, Урок 2" />
-    </label>
+      <div class="p-field">
+        <label for="lessons">{{ 'COURSE.LESSONS_LABEL' | translate }}</label>
+        <input id="lessons" pInputText formControlName="lessons" />
+      </div>
 
-    <button type="submit" [disabled]="form.invalid">{{ 'COURSE.SAVE' | translate }}</button>
-  </form>
+      <div class="p-field">
+        <button pButton type="submit" label="{{ 'COURSE.SAVE' | translate }}" [disabled]="form.invalid"></button>
+      </div>
+    </form>
 
-} @else {
-  <p style="color:red">{{ 'COURSE.ACCESS_DENIED' | translate }}</p>
-}
+  } @else {
+    <p style="color:red">{{ 'COURSE.ACCESS_DENIED' | translate }}</p>
+  }
+</div>

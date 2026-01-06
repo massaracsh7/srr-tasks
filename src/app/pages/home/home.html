@@ -1,53 +1,54 @@
 <h1>{{ 'HOME.TITLE' | translate }}</h1>
 
-<div>
-  <label>
-    {{ 'HOME.CATEGORY' | translate }}:
-    <select [value]="categoryFilter()" (change)="setCategory($event)">
-      <option value="">{{ 'COMMON.ALL' | translate }}</option>
-      <option value="Frontend">Frontend</option>
-      <option value="Programming">Programming</option>
-    </select>
-  </label>
+<div class="filters grid gap-3 mb-3">
+  <p-select
+    class="col-12 md:col-4"
+    [options]="categories"
+    [showClear]="true"
+    [placeholder]="'HOME.CATEGORY' | translate"
+    [(ngModel)]="category">
+  </p-select>
 
-  <label>
-    {{ 'HOME.DIFFICULTY' | translate }}:
-    <select [value]="difficultyFilter()" (change)="setDifficulty($event)">
-      <option value="">{{ 'COMMON.ALL' | translate }}</option>
-      <option value="Beginner">
-        {{ 'DIFFICULTY.BEGINNER' | translate }}
-      </option>
-      <option value="Intermediate">
-        {{ 'DIFFICULTY.INTERMEDIATE' | translate }}
-      </option>
-      <option value="Advanced">
-        {{ 'DIFFICULTY.ADVANCED' | translate }}
-      </option>
-    </select>
-  </label>
+  <p-select
+    class="col-12 md:col-4"
+    [options]="difficulties"
+    [showClear]="true"
+    [placeholder]="'HOME.DIFFICULTY' | translate"
+    [(ngModel)]="difficulty">
+  </p-select>
 
-  <label>
-    {{ 'HOME.LANGUAGE' | translate }}:
-    <select [value]="languageFilter()" (change)="setLanguage($event)">
-      <option value="">{{ 'COMMON.ALL' | translate }}</option>
-      <option value="EN">EN</option>
-      <option value="RU">RU</option>
-    </select>
-  </label>
+  <p-select
+    class="col-12 md:col-4"
+    [options]="languages"
+    [showClear]="true"
+    [placeholder]="'HOME.LANGUAGE' | translate"
+    [(ngModel)]="language">
+  </p-select>
 </div>
 
-<ul>
+<div class="course-list grid">
   @for (course of filteredCourses(); track course.id) {
-    <li>
-      <a [routerLink]="['/course', course.id]">
-        {{ course.title }}
-      </a>
-      —
-      {{ course.category }},
-      {{ course.difficulty }},
-      {{ course.language }},
-      {{ 'COMMON.RATING' | translate }}: {{ course.rating }},
-      {{ 'COMMON.AUTHOR' | translate }}: {{ course.author }}
-    </li>
+    <div class="col-12 md:col-6 lg:col-4">
+      <p-card [header]="course.title" class="mb-3">
+        <p>{{ course.description }}</p>
+
+        <p class="text-sm">
+          {{ 'HOME.CATEGORY' | translate }}: {{ course.category }} <br />
+          {{ 'HOME.DIFFICULTY' | translate }}: {{ course.difficulty }} <br />
+          {{ 'HOME.LANGUAGE' | translate }}: {{ course.language }} <br />
+          {{ 'COMMON.RATING' | translate }}: {{ course.rating }} <br />
+          {{ 'COMMON.AUTHOR' | translate }}: {{ course.author }}
+        </p>
+
+        <a [routerLink]="['/course', course.id]">
+          <button
+            pButton
+            type="button"
+            label="Open"
+            class="p-button-outlined w-full">
+          </button>
+        </a>
+      </p-card>
+    </div>
   }
-</ul>
+</div>

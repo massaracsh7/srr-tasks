@@ -10,6 +10,10 @@ import { routes } from './app.routes';
 
 import { provideTranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { providePrimeNG } from 'primeng/config';
+import Aura from '@primeuix/themes/aura';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,7 +22,13 @@ export const appConfig: ApplicationConfig = {
 
     provideRouter(routes, withComponentInputBinding()),
     provideClientHydration(withEventReplay()),
+        providePrimeNG({
+      theme: {
+        preset: Aura
+      }
+    }),
 
+provideAnimations(),
     provideHttpClient(),
     provideTranslateService({
       loader: provideTranslateHttpLoader({

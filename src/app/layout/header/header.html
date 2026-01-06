@@ -1,7 +1,46 @@
-<nav>
-  <a routerLink="/">{{ 'HOME.TITLE' | translate }}</a>
-  <a routerLink="/profile">{{ 'PROFILE.TITLE' | translate }}</a>
-  <a routerLink="/create-course">{{ 'COMMON.CREATE_COURSE' | translate }}</a>
-  <button>{{ 'COMMON.LOGOUT' | translate }}</button>
-  <a routerLink="/login">{{ 'COMMON.LOGIN' | translate }}</a>
-</nav>
+<p-menubar style="width:100%">
+  <ng-template pTemplate="start">
+    <button
+      pButton
+      type="button"
+      (click)="navigate('/')"
+      label="{{ 'HOME.TITLE' | translate }}"
+      class="p-button-text"
+    ></button>
+
+    <button
+      pButton
+      type="button"
+      (click)="navigate('/profile')"
+      label="{{ 'PROFILE.TITLE' | translate }}"
+      class="p-button-text"
+    ></button>
+
+    <button
+      pButton
+      type="button"
+      (click)="navigate('/create-course')"
+      label="{{ 'COMMON.CREATE_COURSE' | translate }}"
+      class="p-button-text"
+    ></button>
+
+    <button
+      pButton
+      type="button"
+      (click)="navigate('/login')"
+      label="{{ 'COMMON.LOGIN' | translate }}"
+      class="p-button-text"
+    ></button>
+  </ng-template>
+
+  <ng-template pTemplate="end">
+    <button
+      pButton
+      type="button"
+      icon="pi pi-sign-out"
+      label="{{ 'COMMON.LOGOUT' | translate }}"
+      severity="secondary"
+      (click)="logout()"
+    ></button>
+  </ng-template>
+</p-menubar>

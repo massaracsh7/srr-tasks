@@ -1,16 +1,19 @@
-import { Component, model, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../../core/user';
 import { TranslatePipe } from '@ngx-translate/core';
 
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { MessageModule } from 'primeng/message';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, TranslatePipe],
+  standalone: true,
+  imports: [FormsModule, TranslatePipe, InputTextModule, ButtonModule, MessageModule],
   templateUrl: './login.html',
   styleUrl: './login.scss',
-  standalone: true
 })
 export class Login {
   email = signal('');
@@ -23,7 +26,7 @@ export class Login {
     if (user) {
       this.router.navigate(['/']);
     } else {
-      this.errorMessage.set('Пользователь не найден');
+      this.errorMessage.set('LOGIN.ERROR_USER_NOT_FOUND');
     }
   }
 }

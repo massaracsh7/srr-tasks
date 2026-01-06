@@ -1,13 +1,16 @@
-@if (lesson(); as l) {
-<h2>{{l.title}}</h2>
-  <video controls [attr.key]="l.id" autoplay>
-    <source [src]="l.videoUrl" type="video/mp4" />
-  </video>
-} @else {
-  <p>Загрузка урока…</p>
-}
+<div class="container lesson-container">
+  @if (lesson(); as l) {
+    <h2>{{ l.title }}</h2>
 
-    <div>
-      <button (click)="goBack()">Вернуться к курсу</button>
-      <button (click)="nextLesson()">Следующий урок</button>
+    <video controls [attr.key]="l.id" autoplay style="width:100%; max-width:800px;">
+      <source [src]="l.videoUrl" type="video/mp4" />
+    </video>
+
+    <div class="lesson-buttons">
+      <button pButton type="button" label="Вернуться к курсу" (click)="goBack()" class="p-button-outlined"></button>
+      <button pButton type="button" label="Следующий урок" (click)="nextLesson()" class="p-button-success"></button>
     </div>
+  } @else {
+    <p>Загрузка урока…</p>
+  }
+</div>
