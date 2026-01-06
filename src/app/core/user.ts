@@ -1,10 +1,13 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { User } from '../models/models';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
+    private router = inject(Router);
+
   users = signal<User[]>([
     { id: 1, name: 'Ivan Ivanov', email: 'ivan@example.com', role: 'student' },
     { id: 2, name: 'Anna Petrova', email: 'anna@example.com', role: 'teacher' }
@@ -20,5 +23,6 @@ export class UserService {
 
   logout() {
     this.currentUser.set(null);
+    this.router.navigate(['/']);
   }
 }

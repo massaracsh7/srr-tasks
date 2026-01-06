@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { MenubarModule } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
+import { UserService } from '../../core/user';
 
 @Component({
   selector: 'app-header',
@@ -13,12 +14,13 @@ import { ButtonModule } from 'primeng/button';
 })
 export class Header {
   private router = inject(Router);
+  userService = inject(UserService);
 
   navigate(route: string): void {
     this.router.navigate([route]);
   }
 
   logout(): void {
-    console.log('logout clicked');
+    this.userService.logout();
   }
 }

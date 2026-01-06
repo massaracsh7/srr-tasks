@@ -24,16 +24,9 @@
       class="p-button-text"
     ></button>
 
-    <button
-      pButton
-      type="button"
-      (click)="navigate('/login')"
-      label="{{ 'COMMON.LOGIN' | translate }}"
-      class="p-button-text"
-    ></button>
-  </ng-template>
 
-  <ng-template pTemplate="end">
+
+  @if(userService.currentUser()) {
     <button
       pButton
       type="button"
@@ -42,5 +35,15 @@
       severity="secondary"
       (click)="logout()"
     ></button>
-  </ng-template>
+  } @else {
+    <button
+      pButton
+      type="button"
+      (click)="navigate('/login')"
+      label="{{ 'COMMON.LOGIN' | translate }}"
+      class="p-button-text"
+    ></button>
+  }
+    </ng-template>
+
 </p-menubar>
