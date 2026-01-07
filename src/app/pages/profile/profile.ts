@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { UserService } from '../../core/user';
 import { FormsModule } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -11,6 +11,7 @@ import { SelectModule } from 'primeng/select';
   imports: [FormsModule, TranslatePipe, SelectModule],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Profile {
   userService = inject(UserService);

@@ -53,5 +53,10 @@
 "LANG": {
   "EN": "English",
   "RU": "Russian"
+},
+"NOT_FOUND": {
+  "TITLE": "Page not found",
+  "MESSAGE": "Sorry, the page you are looking for does not exist.",
+  "HOME_BUTTON": "Back to home"
 }
 }

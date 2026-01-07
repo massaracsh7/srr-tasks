@@ -1,25 +1,44 @@
 import { Routes } from '@angular/router';
-import { Home } from './pages/home/home';
-import { Login } from './pages/login/login';
-import { Profile } from './pages/profile/profile';
-import { CourseDetail } from './pages/course-detail/course-detail';
-import { Lesson } from './pages/lesson/lesson';
 import { authGuard } from './core/auth-guard';
-import { CreateCourse } from './pages/create-course/create-course';
-
 
 export const routes: Routes = [
-  { path: '', component: Home },
+  {
+    path: '',
+    loadComponent: () =>
+      import('./pages/home/home').then(m => m.Home),
+  },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./pages/login/login').then(m => m.Login),
+  },
+  {
+    path: 'profile',
+    loadComponent: () =>
+      import('./pages/profile/profile').then(m => m.Profile),
+    canActivate: [authGuard],
+  },
+  {
+    path: 'course/:id',
+    loadComponent: () =>
+      import('./pages/course-detail/course-detail').then(m => m.CourseDetail),
+  },
+  {
+    path: 'course/:courseId/:lessonId',
+    loadComponent: () =>
+      import('./pages/lesson/lesson').then(m => m.Lesson),
+    canActivate: [authGuard],
+  },
+  {
+    path: 'create-course',
+    loadComponent: () =>
+      import('./pages/create-course/create-course').then(m => m.CreateCourse),
+    canActivate: [authGuard],
+  },
 
-  { path: 'login', component: Login },
-
-  { path: 'profile', component: Profile, canActivate: [authGuard] },
-
-  { path: 'course/:id', component: CourseDetail },
-
-  { path: 'course/:courseId/:lessonId', component: Lesson, canActivate: [authGuard] },
-
-  { path: 'create-course', component: CreateCourse, canActivate: [authGuard] },
-
-  { path: '**', redirectTo: '' }
+  {
+    path: '**',
+    loadComponent: () =>
+      import('./pages/not-found/not-found').then(m => m.NotFound),
+  },
 ];

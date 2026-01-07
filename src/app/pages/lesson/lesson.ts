@@ -1,4 +1,4 @@
-import { Component, inject, input, signal, effect } from '@angular/core';
+import { Component, inject, input, signal, effect, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Courses } from '../../core/courses';
@@ -17,6 +17,7 @@ import { HasNextLessonPipe } from '../../shared/pipes/has-next-lesson-pipe';
 ],
   templateUrl: './lesson.html',
   styleUrl: './lesson.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Lesson {
   courseId = input.required<string>();

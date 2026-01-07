@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { UserService } from '../../core/user';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -22,6 +22,7 @@ import { AutoFocus } from '../../shared/directives/auto-focus';
   ],
   templateUrl: './create-course.html',
   styleUrl: './create-course.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateCourse {
   userService = inject(UserService);
