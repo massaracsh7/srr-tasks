@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../../core/user';
@@ -14,6 +14,7 @@ import { MessageModule } from 'primeng/message';
   imports: [FormsModule, TranslatePipe, InputTextModule, ButtonModule, MessageModule],
   templateUrl: './login.html',
   styleUrl: './login.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Login {
   email = signal('');

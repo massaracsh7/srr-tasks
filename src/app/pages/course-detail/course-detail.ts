@@ -1,4 +1,4 @@
-import { Component, inject, input, signal, effect } from '@angular/core';
+import { Component, inject, input, signal, effect, ChangeDetectionStrategy } from '@angular/core';
 import { Courses } from '../../core/courses';
 import { UserService } from '../../core/user';
 import { RouterLink } from '@angular/router';
@@ -15,6 +15,7 @@ import { HighlightNewLesson } from '../../shared/directives/highlight-new-lesson
   imports: [CommonModule, RouterLink, TranslatePipe, CardModule, ProgressBarModule, HighlightNewLesson],
   templateUrl: './course-detail.html',
   styleUrl: './course-detail.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseDetail {
   id = input.required<string>();

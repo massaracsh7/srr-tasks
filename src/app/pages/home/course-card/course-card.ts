@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -12,6 +12,7 @@ import { Course } from '../../../models/models';
   imports: [CommonModule, RouterLink, TranslatePipe, CardModule, ButtonModule],
   templateUrl: './course-card.html',
   styleUrl: './course-card.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseCard {
   course = input<Course | undefined>(undefined);

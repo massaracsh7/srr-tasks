@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { MenubarModule } from 'primeng/menubar';
@@ -11,6 +11,7 @@ import { UserService } from '../../core/user';
   imports: [MenubarModule, ButtonModule, TranslatePipe],
   templateUrl: './header.html',
   styleUrl: './header.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Header {
   private router = inject(Router);
