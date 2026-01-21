@@ -1,11 +1,18 @@
-import { Injectable, signal } from '@angular/core';
-import { Course } from '../models/models';
+import { createReducer, on } from '@ngrx/store';
+import * as CoursesActions from './courses.actions';
+import { Course } from '../../../models/models';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class Courses {
-  courses = signal<Course[]>([
+export interface CoursesState {
+  courses: Course[];
+  filters: {
+    category?: string;
+    difficulty?: string;
+    language?: string;
+  };
+}
+
+export const initialState: CoursesState = {
+  courses: [
     {
       id: 1,
       title: 'Angular 20 Basics',
@@ -36,17 +43,18 @@ export class Courses {
         { id: 2, title: 'Decorators', videoUrl: 'https://www.w3schools.com/html/movie.mp4' }
       ]
     }
-  ]);
+  ],
+  filters: {}
+};
 
-  getCourseById(id: number) {
-    return this.courses().find(c => c.id === id);
-  }
-
-  filterCourses(filters: { category?: string; difficulty?: string; language?: string }) {
-    return this.courses().filter(c =>
-      (!filters.category || c.category === filters.category) &&
-      (!filters.difficulty || c.difficulty === filters.difficulty) &&
-      (!filters.language || c.language === filters.language)
-    );
-  }
-}
+export const coursesReducer = createReducer(
+  initialState,
+  on(CoursesActions.setCourses, (state, { courses }) => ({
+    ...state,
+    courses
+  })),
+  on(CoursesActions.setFilters, (state, { filters }) => ({
+    ...state,
+    filters
+  }))
+);

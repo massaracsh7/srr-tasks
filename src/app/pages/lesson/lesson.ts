@@ -1,7 +1,7 @@
 import { Component, inject, input, signal, effect, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Courses } from '../../core/courses';
+import { Courses } from '../../core/courses/courses';
 import { Course, Lesson as LessonModel } from '../../models/models';
 import { ButtonModule } from 'primeng/button';
 import { KeyboardLessonNavDirective } from '../../shared/directives/keyboard-lesson-nav';

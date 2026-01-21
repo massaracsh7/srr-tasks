@@ -7,8 +7,8 @@
     optionLabel="label"
     optionValue="value"
     [placeholder]="'HOME.CATEGORY' | translate"
-    [ngModel]="category()"
-    (ngModelChange)="category.set($event)">
+    [(ngModel)]="category"
+    (onChange)="updateFilters()">
   </p-select>
 
   <p-select
@@ -17,8 +17,8 @@
     optionLabel="label"
     optionValue="value"
     [placeholder]="'HOME.DIFFICULTY' | translate"
-    [ngModel]="difficulty()"
-    (ngModelChange)="difficulty.set($event)">
+    [(ngModel)]="difficulty"
+    (onChange)="updateFilters()">
   </p-select>
 
   <p-select
@@ -27,15 +27,15 @@
     optionLabel="label"
     optionValue="value"
     [placeholder]="'HOME.LANGUAGE' | translate"
-    [ngModel]="language()"
-    (ngModelChange)="language.set($event)">
+    [(ngModel)]="language"
+    (onChange)="updateFilters()">
   </p-select>
 </div>
 
 <div class="course-list p-grid p-mt-3">
   @for (course of filteredCourses(); track course.id) {
     <div class="p-col-12 p-md-6 p-lg-4">
-      <app-course-card [course]="course" />
+      <app-course-card [course]="course"></app-course-card>
     </div>
   }
 </div>

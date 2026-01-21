@@ -13,12 +13,16 @@ import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
+import { provideState, provideStore } from '@ngrx/store';
+import { coursesFeature } from './core/courses/state/courses.feature';
 
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
+provideStore(),
+    provideState(coursesFeature),
 
     provideRouter(routes, withComponentInputBinding()),
     provideClientHydration(withEventReplay()),

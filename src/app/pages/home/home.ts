@@ -1,13 +1,17 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { SelectModule } from 'primeng/select';
-
-import { Courses } from '../../core/courses';
 import { FormsModule } from '@angular/forms';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { CourseCard } from './course-card/course-card';
+
+import { Store } from '@ngrx/store';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { Course } from '../../models/models';
+import { selectFilteredCourses } from '../../core/courses/state/courses.selectors';
+import { setFilters } from '../../core/courses/state/courses.actions';
 
 @Component({
   selector: 'app-home',
@@ -17,19 +21,18 @@ import { CourseCard } from './course-card/course-card';
     FormsModule,
     TranslatePipe,
     SelectModule,
-    CardModule, ButtonModule,
+    CardModule,
+    ButtonModule,
     CourseCard
   ],
   templateUrl: './home.html',
   styleUrl: './home.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Home {
-  private courses = inject(Courses);
-
-  category = signal<string | null>(null);
-  difficulty = signal<string | null>(null);
-  language = signal<string | null>(null);
+  category: string | undefined;
+  difficulty: string | undefined;
+  language: string | undefined;
 
   categories = [
     { label: 'Frontend', value: 'Frontend' },
@@ -47,11 +50,24 @@ export class Home {
     { label: 'RU', value: 'RU' }
   ];
 
-  filteredCourses = computed(() =>
-    this.courses.filterCourses({
-      category: this.category() ?? '',
-      difficulty: this.difficulty() ?? '',
-      language: this.language() ?? '',
+  filteredCourses = signal<Course[]>([]);
+
+  constructor(private store: Store) {
+    const coursesSignal = toSignal(this.store.select(selectFilteredCourses), { initialValue: [] });
+    effect(() => {
+      this.filteredCourses.set(coursesSignal());
     })
-  );
+  }
+
+  updateFilters() {
+    this.store.dispatch(
+      setFilters({
+        filters: {
+          category: this.category,
+          difficulty: this.difficulty,
+          language: this.language
+        }
+      })
+    );
+  }
 }
