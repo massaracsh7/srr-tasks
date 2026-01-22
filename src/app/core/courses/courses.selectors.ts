@@ -14,3 +14,15 @@ export const selectFilteredCourses = createSelector(
       (!filters.language || c.language === filters.language)
     )
 );
+
+export const selectCourseById = (courseId: number) =>
+  createSelector(
+    selectCourses,
+    courses => courses.find(c => c.id === courseId)
+  );
+
+export const selectLessonByIds = (courseId: number, lessonId: number) =>
+  createSelector(
+    selectCourseById(courseId),
+    course => course?.lessons.find(l => l.id === lessonId)
+  );

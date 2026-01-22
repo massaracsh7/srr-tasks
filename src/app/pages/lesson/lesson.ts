@@ -1,8 +1,19 @@
-import { Component, inject, input, signal, effect, ChangeDetectionStrategy } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  inject,
+  input,
+  signal,
+  effect
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Courses } from '../../core/courses/courses';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { toSignal } from '@angular/core/rxjs-interop';
+
 import { Course, Lesson as LessonModel } from '../../models/models';
+import { selectCourses } from '../../core/courses/courses.selectors';
+
 import { ButtonModule } from 'primeng/button';
 import { KeyboardLessonNavDirective } from '../../shared/directives/keyboard-lesson-nav';
 import { SafeTitlePipe } from '../../shared/pipes/safe-title-pipe';
@@ -11,10 +22,13 @@ import { HasNextLessonPipe } from '../../shared/pipes/has-next-lesson-pipe';
 @Component({
   selector: 'app-lesson',
   standalone: true,
-  imports: [CommonModule, ButtonModule, KeyboardLessonNavDirective,
+  imports: [
+    CommonModule,
+    ButtonModule,
+    KeyboardLessonNavDirective,
     SafeTitlePipe,
-    HasNextLessonPipe,
-],
+    HasNextLessonPipe
+  ],
   templateUrl: './lesson.html',
   styleUrl: './lesson.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -23,19 +37,21 @@ export class Lesson {
   courseId = input.required<string>();
   lessonId = input.required<string>();
 
-  private coursesService = inject(Courses);
+  private store = inject(Store);
   private router = inject(Router);
 
   course = signal<Course | undefined>(undefined);
   lesson = signal<LessonModel | undefined>(undefined);
 
   constructor() {
-    effect(() => {
-      const courseId = Number(this.courseId());
-      const lessonId = Number(this.lessonId());
+    const coursesSignal = toSignal(this.store.select(selectCourses), { initialValue: [] });
 
-      const course = this.coursesService.getCourseById(courseId);
-      const lesson = course?.lessons.find(l => l.id === lessonId);
+    effect(() => {
+      const courseIdNum = Number(this.courseId());
+      const lessonIdNum = Number(this.lessonId());
+
+      const course = coursesSignal().find(c => c.id === courseIdNum);
+      const lesson = course?.lessons.find(l => l.id === lessonIdNum);
 
       this.course.set(course);
       this.lesson.set(lesson);
@@ -59,4 +75,5 @@ export class Lesson {
       this.router.navigate(['/course', course.id, nextLesson.id]);
     }
   }
+  
 }
