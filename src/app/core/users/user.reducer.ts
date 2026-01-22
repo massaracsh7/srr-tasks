@@ -9,8 +9,8 @@ export interface UserState {
 
 export const initialState: UserState = {
   users: [
-    { id: 1, name: 'Ivan Ivanov', email: 'ivan@gmail.com', role: 'student' },
-    { id: 2, name: 'Anna Petrova', email: 'anna@gmail.com', role: 'teacher' }
+    { id: 1, name: 'Ivan Ivanov', email: 'ivan@example.com', role: 'student' },
+    { id: 2, name: 'Anna Petrova', email: 'anna@example.com', role: 'teacher' }
   ],
   currentUser: null
 };

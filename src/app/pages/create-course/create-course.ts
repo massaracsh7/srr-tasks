@@ -5,7 +5,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule  } from 'primeng/textarea';
 import { ButtonModule } from 'primeng/button';
-import { AutoFocus } from '../../shared/directives/auto-focus';
+import { AutoFocus } from '../../shared/directives/auto-focus/auto-focus';
 import { Store } from '@ngrx/store';
 import { selectCurrentUser } from '../../core/users/user.selectors';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -31,7 +31,7 @@ export class CreateCourse {
 
     private store = inject(Store);
 
-  readonly currentUser = toSignal(
+  currentUser = toSignal(
   this.store.select(selectCurrentUser),
   { initialValue: null }
 );

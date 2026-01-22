@@ -11,7 +11,7 @@
     }
   </ul>
 
-  @if (userService.currentUser()) {
+  @if (currentUser()) {
   <p>{{ "COURSE.PROGRESS" | translate : { progress: progress() } }}</p>
   <p-progressBar [value]="progress()" [showValue]="true"></p-progressBar>
   }

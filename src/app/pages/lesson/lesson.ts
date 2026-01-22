@@ -16,9 +16,9 @@ import { Lesson as LessonModel } from '../../models/lesson.model';
 import { selectCourses } from '../../core/courses/courses.selectors';
 
 import { ButtonModule } from 'primeng/button';
-import { KeyboardLessonNavDirective } from '../../shared/directives/keyboard-lesson-nav';
-import { SafeTitlePipe } from '../../shared/pipes/safe-title-pipe';
-import { HasNextLessonPipe } from '../../shared/pipes/has-next-lesson-pipe';
+import { KeyboardLessonNavDirective } from '../../shared/directives/keyboard-lesson-nav/keyboard-lesson-nav';
+import { SafeTitlePipe } from '../../shared/pipes/safe-title-pipe/safe-title-pipe';
+import { HasNextLessonPipe } from '../../shared/pipes/has-next-lesson-pipe/has-next-lesson-pipe';
 
 @Component({
   selector: 'app-lesson',
