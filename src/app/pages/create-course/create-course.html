@@ -1,5 +1,5 @@
 <div class="create-course-container">
-  @if(userService.currentUser()?.role === 'teacher') {
+  @if (currentUser()?.role === 'teacher')  {
 
     <h2>{{ 'COURSE.NEW_COURSE_TITLE' | translate }}</h2>
 

@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { UserService } from '../../core/users/user';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -7,6 +6,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule  } from 'primeng/textarea';
 import { ButtonModule } from 'primeng/button';
 import { AutoFocus } from '../../shared/directives/auto-focus';
+import { Store } from '@ngrx/store';
+import { selectCurrentUser } from '../../core/users/user.selectors';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-create-course',
@@ -25,8 +27,14 @@ import { AutoFocus } from '../../shared/directives/auto-focus';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateCourse {
-  userService = inject(UserService);
   private fb = inject(FormBuilder);
+
+    private store = inject(Store);
+
+  readonly currentUser = toSignal(
+  this.store.select(selectCurrentUser),
+  { initialValue: null }
+);
 
   form = this.fb.group({
     title: ['', Validators.required],
