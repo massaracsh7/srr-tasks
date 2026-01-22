@@ -1,14 +1,15 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
-import { TextareaModule  } from 'primeng/textarea';
+import { TextareaModule } from 'primeng/textarea';
 import { ButtonModule } from 'primeng/button';
 import { AutoFocus } from '../../shared/directives/auto-focus/auto-focus';
-import { Store } from '@ngrx/store';
-import { selectCurrentUser } from '../../core/users/user.selectors';
+
+import { Store } from '@ngxs/store';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { UserState } from '../../core/users/user.state';
 
 @Component({
   selector: 'app-create-course',
@@ -18,7 +19,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
     ReactiveFormsModule,
     TranslatePipe,
     InputTextModule,
-    TextareaModule ,
+    TextareaModule,
     ButtonModule,
     AutoFocus
   ],
@@ -28,13 +29,9 @@ import { toSignal } from '@angular/core/rxjs-interop';
 })
 export class CreateCourse {
   private fb = inject(FormBuilder);
+  private store = inject(Store);
 
-    private store = inject(Store);
-
-  currentUser = toSignal(
-  this.store.select(selectCurrentUser),
-  { initialValue: null }
-);
+  currentUser = toSignal(this.store.select(UserState.currentUser), { initialValue: null });
 
   form = this.fb.group({
     title: ['', Validators.required],

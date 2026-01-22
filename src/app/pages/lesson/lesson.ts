@@ -8,17 +8,17 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Store } from '@ngxs/store';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 import { Course } from '../../models/course.model';
 import { Lesson as LessonModel } from '../../models/lesson.model';
-import { selectCourses } from '../../core/courses/courses.selectors';
 
 import { ButtonModule } from 'primeng/button';
 import { KeyboardLessonNavDirective } from '../../shared/directives/keyboard-lesson-nav/keyboard-lesson-nav';
 import { SafeTitlePipe } from '../../shared/pipes/safe-title-pipe/safe-title-pipe';
 import { HasNextLessonPipe } from '../../shared/pipes/has-next-lesson-pipe/has-next-lesson-pipe';
+import { CourseState } from '../../core/courses/courses.state';
 
 @Component({
   selector: 'app-lesson',
@@ -45,7 +45,7 @@ export class Lesson {
   lesson = signal<LessonModel | undefined>(undefined);
 
   constructor() {
-    const coursesSignal = toSignal(this.store.select(selectCourses), { initialValue: [] });
+    const coursesSignal = toSignal(this.store.select(CourseState.courses), { initialValue: [] });
 
     effect(() => {
       const courseIdNum = Number(this.courseId());
@@ -76,5 +76,4 @@ export class Lesson {
       this.router.navigate(['/course', course.id, nextLesson.id]);
     }
   }
-  
 }

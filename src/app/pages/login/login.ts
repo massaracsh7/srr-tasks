@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Store } from '@ngxs/store';
 import { TranslatePipe } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
+import { toSignal } from '@angular/core/rxjs-interop';
 
-import * as UserActions from '../../core/users/user.actions';
-import { selectCurrentUser } from '../../core/users/user.selectors';
+import { UserState, Login as LoginAction } from '../../core/users/user.state';
 
 @Component({
   selector: 'app-login',
@@ -30,21 +30,32 @@ export class Login {
 
   email = signal('');
   errorMessage = signal('');
-  currentUser = signal<null | { id: number; name: string; email: string; role: string }>(null);
+
+  currentUser = toSignal(
+    this.store.select(UserState.currentUser),
+    { initialValue: null }
+  );
 
   constructor() {
     effect(() => {
-      this.store.select(selectCurrentUser).subscribe(user => {
-        this.currentUser.set(user);
-        if (user) {
-          this.router.navigate(['/']);
-        }
-      });
+      if (this.currentUser()) this.router.navigate(['/']);
     });
   }
 
   login() {
     this.errorMessage.set('');
-    this.store.dispatch(UserActions.login({ email: this.email() }));
+    const emailValue = this.email();
+
+    if (!emailValue) {
+      this.errorMessage.set('Email is required');
+      return;
+    }
+
+    this.store.dispatch(new LoginAction(emailValue));
+
+    // после dispatch можно подписаться на currentUser и редиректить
+    if (this.store.selectSnapshot(UserState.currentUser)) {
+      this.router.navigate(['/']);
+    }
   }
 }

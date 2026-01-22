@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Store } from '@ngxs/store';
 import { TranslatePipe } from '@ngx-translate/core';
 import { MenubarModule } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
-import * as UserActions from '../../core/users/user.actions';
-import { selectCurrentUser } from '../../core/users/user.selectors';
+import { UserState, Logout } from '../../core/users/user.state';
+import { toSignal } from '@angular/core/rxjs-interop';
+
 
 @Component({
   selector: 'app-header',
@@ -19,12 +20,8 @@ export class Header {
   private store = inject(Store);
   private router = inject(Router);
 
-  currentUser = signal<null | { id: number; name: string; email: string; role: string }>(null);
-
+  currentUser = toSignal(this.store.select(UserState.currentUser), { initialValue: null });
   constructor() {
-    effect(() => {
-      this.store.select(selectCurrentUser).subscribe(user => this.currentUser.set(user));
-    });
   }
 
   navigate(route: string): void {
@@ -32,7 +29,7 @@ export class Header {
   }
 
   logout(): void {
-    this.store.dispatch(UserActions.logout());
+    this.store.dispatch(new Logout());
     this.router.navigate(['/login']);
   }
 }

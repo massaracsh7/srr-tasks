@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { SelectModule } from 'primeng/select';
@@ -7,11 +7,10 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { CourseCard } from './course-card/course-card';
 
-import { Store } from '@ngrx/store';
+import { Store } from '@ngxs/store';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Course } from '../../models/course.model';
-import { selectFilteredCourses } from '../../core/courses/courses.selectors';
-import { setFilters } from '../../core/courses/courses.actions';
+import { CourseState, SetFilters } from '../../core/courses/courses.state';
 
 @Component({
   selector: 'app-home',
@@ -30,6 +29,8 @@ import { setFilters } from '../../core/courses/courses.actions';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Home {
+  private store = inject(Store);
+
   category: string | undefined;
   difficulty: string | undefined;
   language: string | undefined;
@@ -52,21 +53,20 @@ export class Home {
 
   filteredCourses = signal<Course[]>([]);
 
-  constructor(private store: Store) {
-    const coursesSignal = toSignal(this.store.select(selectFilteredCourses), { initialValue: [] });
+  constructor() {
+    const coursesSignal = toSignal(this.store.select(CourseState.filteredCourses), { initialValue: [] });
+
     effect(() => {
       this.filteredCourses.set(coursesSignal());
-    })
+    });
   }
 
   updateFilters() {
     this.store.dispatch(
-      setFilters({
-        filters: {
-          category: this.category,
-          difficulty: this.difficulty,
-          language: this.language
-        }
+      new SetFilters({
+        category: this.category,
+        difficulty: this.difficulty,
+        language: this.language
       })
     );
   }
