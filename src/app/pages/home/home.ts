@@ -10,8 +10,8 @@ import { CourseCard } from './course-card/course-card';
 import { Store } from '@ngrx/store';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Course } from '../../models/models';
-import { selectFilteredCourses } from '../../core/courses/state/courses.selectors';
-import { setFilters } from '../../core/courses/state/courses.actions';
+import { selectFilteredCourses } from '../../core/courses/courses.selectors';
+import { setFilters } from '../../core/courses/courses.actions';
 
 @Component({
   selector: 'app-home',

@@ -1,6 +1,6 @@
 import { Component, inject, input, signal, effect, ChangeDetectionStrategy } from '@angular/core';
 import { Courses } from '../../core/courses/courses';
-import { UserService } from '../../core/user';
+import { UserService } from '../../core/users/user';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Course } from '../../models/models';

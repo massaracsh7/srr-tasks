@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { UserService } from '../../core/user';
+import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { TranslatePipe } from '@ngx-translate/core';
-import { I18nService } from '../../core/i18n-service';
 import { SelectModule } from 'primeng/select';
+import { I18nService } from '../../core/i18n-service';
+import { selectCurrentUser } from '../../core/users/user.selectors';
 
 @Component({
   selector: 'app-profile',
@@ -14,10 +15,17 @@ import { SelectModule } from 'primeng/select';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Profile {
-  userService = inject(UserService);
-  i18n = inject(I18nService);
+  private store = inject(Store);
+  private i18n = inject(I18nService);
 
+  currentUser = signal<null | { id: number; name: string; email: string; role: string }>(null);
   currentLang = signal<'EN' | 'RU'>(this.i18n.currentLang.toUpperCase() as 'EN' | 'RU');
+
+  constructor() {
+    effect(() => {
+      this.store.select(selectCurrentUser).subscribe(user => this.currentUser.set(user));
+    });
+  }
 
   setLanguage(lang: 'EN' | 'RU') {
     this.currentLang.set(lang);

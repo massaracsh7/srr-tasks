@@ -1,11 +1,18 @@
-@if(userService.currentUser()) {
-  <h2>{{ 'PROFILE.TITLE' | translate }}: {{ userService.currentUser()?.name }}</h2>
-  <p>Email: {{ userService.currentUser()?.email }}</p>
+@if (currentUser(); as user) {
+  <h2>
+    {{ 'PROFILE.TITLE' | translate }}: {{ user.name }}
+  </h2>
 
-  <label>{{ 'PROFILE.LANGUAGE' | translate }}:
-    <select [value]="currentLang()" (change)="setLanguage($any($event.target).value)">
-      <option value="EN" [selected]="currentLang() === 'EN'">English</option>
-      <option value="RU" [selected]="currentLang() === 'RU'">Русский</option>
+  <p>Email: {{ user.email }}</p>
+
+  <label>
+    {{ 'PROFILE.LANGUAGE' | translate }}:
+    <select
+      [value]="currentLang()"
+      (change)="setLanguage($any($event.target).value)"
+    >
+      <option value="EN">English</option>
+      <option value="RU">Русский</option>
     </select>
   </label>
 } @else {

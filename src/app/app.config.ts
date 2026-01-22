@@ -14,25 +14,29 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
 import { provideState, provideStore } from '@ngrx/store';
-import { coursesFeature } from './core/courses/state/courses.feature';
+import { coursesFeature } from './core/courses/courses.feature';
+import { userFeature } from './core/users/user.feature';
+import { provideEffects } from '@ngrx/effects';
+import { UserEffects } from './core/users/user.effects';
 
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
-provideStore(),
+    provideStore(),
     provideState(coursesFeature),
-
+    provideState(userFeature),
+    provideEffects([UserEffects]),
     provideRouter(routes, withComponentInputBinding()),
     provideClientHydration(withEventReplay()),
-        providePrimeNG({
+    providePrimeNG({
       theme: {
         preset: Aura
       }
     }),
 
-provideAnimations(),
+    provideAnimations(),
     provideHttpClient(),
     provideTranslateService({
       loader: provideTranslateHttpLoader({

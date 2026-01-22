@@ -1,4 +1,4 @@
-import { Course } from "../../../models/models";
+import { Course } from "../../models/models";
 
 export interface CoursesFilters {
   category: string | null;
