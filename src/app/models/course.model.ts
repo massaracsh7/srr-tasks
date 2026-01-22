@@ -1,3 +1,5 @@
+import { Lesson } from "./lesson.model";
+
 export interface Course {
   id: number;
   title: string;
@@ -9,18 +11,4 @@ export interface Course {
   description: string;
   goals: string[];
   lessons: Lesson[];
-}
-
-export interface Lesson {
-  id: number;
-  title: string;
-  videoUrl: string;
-  completed?: boolean;
-}
-
-export interface User {
-  id: number;
-  name: string;
-  email: string;
-  role: 'student' | 'teacher';
 }

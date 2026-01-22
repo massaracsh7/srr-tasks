@@ -1,8 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import * as UserActions from './user.actions';
-import { User } from '../../models/models';
+import { User } from '../../models/user.model';
+import { of } from 'rxjs';
 
 @Injectable()
 export class UserEffects {
@@ -19,7 +20,49 @@ export class UserEffects {
             map(action => {
                 const user = this.users.find(u => u.email === action.email) || null;
                 return UserActions.loginSuccess({ user });
+            }),
+            tap(action => {
+                if (action.user) {
+                    localStorage.setItem('currentUser', JSON.stringify(action.user));
+                } else {
+                    localStorage.removeItem('currentUser');
+                }
+            })
+        ),
+    );
+
+    logout$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(UserActions.logout),
+            map(action => {
+                return UserActions.logoutSuccess();
+            }),
+            tap(() => {
+                if (localStorage.getItem('currentUser')) {
+                    localStorage.removeItem('currentUser');
+                }
             })
         )
-    );
+    )
+
+   restoreSession$ = createEffect(() => {
+    if (typeof localStorage === 'undefined') {
+      return of();
+    }
+
+    const stored = localStorage.getItem('currentUser');
+    if (!stored) {
+      return of();
+    }
+
+    const storedUser: User = JSON.parse(stored);
+    const userAuth = this.users.find(u => u.email === storedUser.email);
+
+    if (userAuth) {
+      return of(UserActions.loginSuccess({ user: userAuth }));
+    }
+
+    localStorage.removeItem('currentUser');
+    return of(UserActions.logoutSuccess());
+  });
 }

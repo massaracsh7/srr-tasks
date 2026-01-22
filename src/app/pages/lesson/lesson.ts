@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { toSignal } from '@angular/core/rxjs-interop';
 
-import { Course, Lesson as LessonModel } from '../../models/models';
+import { Course } from '../../models/course.model';
+import { Lesson as LessonModel } from '../../models/lesson.model';
 import { selectCourses } from '../../core/courses/courses.selectors';
 
 import { ButtonModule } from 'primeng/button';

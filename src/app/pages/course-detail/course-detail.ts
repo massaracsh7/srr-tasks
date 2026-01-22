@@ -3,7 +3,7 @@ import { Courses } from '../../core/courses/courses';
 import { UserService } from '../../core/users/user';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Course } from '../../models/models';
+import { Course } from '../../models/course.model';
 import { TranslatePipe } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
 import { ProgressBarModule } from 'primeng/progressbar';

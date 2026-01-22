@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Course } from '../../models/models';
+import { Course } from '../../models/course.model';
 
 export interface CoursesFilters {
   category?: string;

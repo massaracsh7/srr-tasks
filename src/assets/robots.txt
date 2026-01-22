@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /course/
+Allow: /lesson/
+Sitemap: https://srrtasks.com/sitemap.xml

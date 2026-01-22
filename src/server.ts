@@ -5,6 +5,7 @@ import {
   writeResponseToNodeResponse,
 } from '@angular/ssr/node';
 import express from 'express';
+import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
@@ -19,6 +20,8 @@ app.use(
   })
 );
 
+
+
 app.use(
   express.static(browserDistFolder, {
     maxAge: '1y',
@@ -26,6 +29,17 @@ app.use(
     redirect: false,
   })
 );
+
+const robotsPath = join(browserDistFolder, 'assets/robots.txt');
+
+app.get('/robots.txt', (req, res) => {
+  try {
+    const content = readFileSync(robotsPath, 'utf-8');
+    res.type('text/plain').send(content);
+  } catch (err) {
+    res.status(404).send('Not found');
+  }
+});
 
 app.use((req, res, next) => {
   angularApp

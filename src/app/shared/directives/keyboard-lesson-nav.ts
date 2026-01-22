@@ -1,12 +1,12 @@
-import { Directive, HostListener, Input } from '@angular/core';
+import { Directive, HostListener, input } from '@angular/core';
 
 @Directive({
   selector: '[appKeyboardLessonNav]',
   standalone: true,
 })
 export class KeyboardLessonNavDirective {
-  @Input({ required: true }) next!: () => void;
-  @Input({ required: true }) back!: () => void;
+  next = input<() => void>();
+  back = input<() => void>();
 
   @HostListener('window:keydown', ['$event'])
   handle(event: KeyboardEvent) {

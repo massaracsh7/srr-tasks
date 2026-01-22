@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
-import { Course } from '../../../models/models';
+import { Course } from '../../../models/course.model';
 
 @Component({
   selector: 'app-course-card',

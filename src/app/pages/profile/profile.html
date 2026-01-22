@@ -9,7 +9,7 @@
     {{ 'PROFILE.LANGUAGE' | translate }}:
     <select
       [value]="currentLang()"
-      (change)="setLanguage($any($event.target).value)"
+      (change)="setLanguage($event)"
     >
       <option value="EN">English</option>
       <option value="RU">Русский</option>

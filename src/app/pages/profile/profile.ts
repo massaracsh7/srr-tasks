@@ -27,8 +27,10 @@ export class Profile {
     });
   }
 
-  setLanguage(lang: 'EN' | 'RU') {
-    this.currentLang.set(lang);
-    this.i18n.setLanguage(lang.toLowerCase() as 'en' | 'ru');
-  }
+  setLanguage(event: Event) {
+  const select = event.target as HTMLSelectElement;
+  const lang = select.value as 'EN' | 'RU';
+  this.currentLang.set(lang);
+  this.i18n.setLanguage(lang.toLowerCase() as 'en' | 'ru');
+}
 }
