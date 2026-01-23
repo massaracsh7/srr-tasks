@@ -9,6 +9,7 @@ import { MessageModule } from 'primeng/message';
 
 import * as UserActions from '../../core/users/user.actions';
 import { selectCurrentUser } from '../../core/users/user.selectors';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-login',
@@ -33,13 +34,17 @@ export class Login {
   currentUser = signal<null | { id: number; name: string; email: string; role: string }>(null);
 
   constructor() {
+    const currentUserSignal = toSignal(
+      this.store.select(selectCurrentUser),
+      { initialValue: null }
+    );
+
     effect(() => {
-      this.store.select(selectCurrentUser).subscribe(user => {
-        this.currentUser.set(user);
-        if (user) {
-          this.router.navigate(['/']);
-        }
-      });
+      this.currentUser.set(currentUserSignal());
+
+      if (typeof window !== 'undefined' && currentUserSignal()) {
+        this.router.navigate(['/']);
+      }
     });
   }
 

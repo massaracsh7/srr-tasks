@@ -5,6 +5,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { SelectModule } from 'primeng/select';
 import { I18nService } from '../../core/i18n-service';
 import { selectCurrentUser } from '../../core/users/user.selectors';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-profile',
@@ -22,8 +23,10 @@ export class Profile {
   currentLang = signal<'EN' | 'RU'>(this.i18n.currentLang.toUpperCase() as 'EN' | 'RU');
 
   constructor() {
+     const currentUserSignal = toSignal(this.store.select(selectCurrentUser), { initialValue: null });
+
     effect(() => {
-      this.store.select(selectCurrentUser).subscribe(user => this.currentUser.set(user));
+      this.currentUser.set(currentUserSignal());
     });
   }
 
