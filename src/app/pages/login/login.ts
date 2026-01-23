@@ -53,7 +53,6 @@ export class Login {
 
     this.store.dispatch(new LoginAction(emailValue));
 
-    // после dispatch можно подписаться на currentUser и редиректить
     if (this.store.selectSnapshot(UserState.currentUser)) {
       this.router.navigate(['/']);
     }
