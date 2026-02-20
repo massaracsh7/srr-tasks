@@ -1,23 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { CourseCard } from './course-card';
 
 describe('CourseCard', () => {
   let component: CourseCard;
-  let fixture: ComponentFixture<CourseCard>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [CourseCard]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(CourseCard);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    const injector = TestBed.inject(EnvironmentInjector);
+    component = runInInjectionContext(injector, () => new CourseCard());
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should toggle isShown state', () => {
+    expect(component.isShown()).toBe(false);
+    component.toggle();
+    expect(component.isShown()).toBe(true);
   });
 });
