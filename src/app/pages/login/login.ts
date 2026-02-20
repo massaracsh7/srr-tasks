@@ -30,6 +30,7 @@ export class Login {
 
   email = signal('');
   errorMessage = signal('');
+  attemptedLogin = signal(false);
   currentUser = signal<null | { id: number; name: string; email: string; role: string }>(null);
 
   constructor() {
@@ -37,7 +38,13 @@ export class Login {
       this.store.select(selectCurrentUser).subscribe(user => {
         this.currentUser.set(user);
         if (user) {
+          this.errorMessage.set('');
           this.router.navigate(['/']);
+          return;
+        }
+
+        if (this.attemptedLogin()) {
+          this.errorMessage.set('LOGIN.ERROR_USER_NOT_FOUND');
         }
       });
     });
@@ -45,6 +52,7 @@ export class Login {
 
   login() {
     this.errorMessage.set('');
+    this.attemptedLogin.set(true);
     this.store.dispatch(UserActions.login({ email: this.email() }));
   }
 }
