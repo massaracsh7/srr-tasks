@@ -1,52 +1,49 @@
-import { TestBed } from '@angular/core/testing';
 import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
-import { Courses } from '../../core/courses';
+import { TestBed } from '@angular/core/testing';
+import { Store } from '@ngrx/store';
+import { of } from 'rxjs';
+import { setFilters } from '../../core/courses/courses.actions';
 
 import { Home } from './home';
 
 describe('Home', () => {
   let component: Home;
 
-  const coursesMock = {
-    filterCourses: vi.fn(() => []),
+  const storeMock = {
+    select: vi.fn(() => of([])),
+    dispatch: vi.fn(),
   };
 
   beforeEach(async () => {
     vi.clearAllMocks();
 
     await TestBed.configureTestingModule({
-      providers: [{ provide: Courses, useValue: coursesMock }],
+      providers: [{ provide: Store, useValue: storeMock }],
     });
 
     const injector = TestBed.inject(EnvironmentInjector);
-    component = runInInjectionContext(injector, () => new Home());
+    component = runInInjectionContext(injector, () => new Home(storeMock as unknown as Store));
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should request courses with empty filters by default', () => {
-    component.filteredCourses();
-
-    expect(coursesMock.filterCourses).toHaveBeenCalledWith({
-      category: '',
-      difficulty: '',
-      language: '',
-    });
+  it('should initialize with empty courses', () => {
+    expect(component.filteredCourses()).toEqual([]);
   });
 
-  it('should request courses with selected filters', () => {
-    component.category.set('Frontend');
-    component.difficulty.set('Beginner');
-    component.language.set('EN');
+  it('should dispatch selected filters', () => {
+    component.category = 'Frontend';
+    component.difficulty = 'Beginner';
+    component.language = 'EN';
 
-    component.filteredCourses();
+    component.updateFilters();
 
-    expect(coursesMock.filterCourses).toHaveBeenCalledWith({
-      category: 'Frontend',
-      difficulty: 'Beginner',
-      language: 'EN',
-    });
+    expect(storeMock.dispatch).toHaveBeenCalledWith(
+      setFilters({
+        filters: { category: 'Frontend', difficulty: 'Beginner', language: 'EN' },
+      })
+    );
   });
 });

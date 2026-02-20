@@ -1,7 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../../core/user';
+import { Store } from '@ngrx/store';
+import { of } from 'rxjs';
+import * as UserActions from '../../core/users/user.actions';
 
 import { Header } from './header';
 
@@ -12,8 +14,9 @@ describe('Header', () => {
     navigate: vi.fn(),
   };
 
-  const userServiceMock = {
-    logout: vi.fn(),
+  const storeMock = {
+    select: vi.fn(() => of(null)),
+    dispatch: vi.fn(),
   };
 
   beforeEach(async () => {
@@ -22,7 +25,7 @@ describe('Header', () => {
     await TestBed.configureTestingModule({
       providers: [
         { provide: Router, useValue: routerMock },
-        { provide: UserService, useValue: userServiceMock },
+        { provide: Store, useValue: storeMock },
       ],
     });
 
@@ -40,9 +43,10 @@ describe('Header', () => {
     expect(routerMock.navigate).toHaveBeenCalledWith(['/home']);
   });
 
-  it('should call logout on user service', () => {
+  it('should dispatch logout and navigate to login', () => {
     component.logout();
 
-    expect(userServiceMock.logout).toHaveBeenCalled();
+    expect(storeMock.dispatch).toHaveBeenCalledWith(UserActions.logout());
+    expect(routerMock.navigate).toHaveBeenCalledWith(['/login']);
   });
 });

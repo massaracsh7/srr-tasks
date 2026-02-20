@@ -1,15 +1,17 @@
 import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
-import { UserService } from '../../core/user';
+import { Store } from '@ngrx/store';
+import { of } from 'rxjs';
 
 import { CreateCourse } from './create-course';
 
 describe('CreateCourse', () => {
   let component: CreateCourse;
 
-  const userServiceMock = {
-    currentUser: vi.fn(),
+  const storeMock = {
+    select: vi.fn(() => of(null)),
+    dispatch: vi.fn(),
   };
 
   beforeEach(async () => {
@@ -18,7 +20,7 @@ describe('CreateCourse', () => {
     await TestBed.configureTestingModule({
       providers: [
         FormBuilder,
-        { provide: UserService, useValue: userServiceMock },
+        { provide: Store, useValue: storeMock },
       ],
     });
 

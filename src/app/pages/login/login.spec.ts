@@ -1,43 +1,53 @@
+import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { of } from 'rxjs';
+import * as UserActions from '../../core/users/user.actions';
 import { Login } from './login';
 
 describe('Login', () => {
   let component: Login;
 
-  const userServiceMock = {
-    login: vi.fn(),
-  };
-
   const routerMock = {
     navigate: vi.fn(),
   };
 
+  const storeMock = {
+    select: vi.fn(() => of(null)),
+    dispatch: vi.fn(),
+  };
+
   beforeEach(async () => {
     vi.clearAllMocks();
-    component = new Login(userServiceMock as any, routerMock as any);
+
+    await TestBed.configureTestingModule({
+      providers: [
+        { provide: Router, useValue: routerMock },
+        { provide: Store, useValue: storeMock },
+      ],
+    });
+
+    const injector = TestBed.inject(EnvironmentInjector);
+    component = runInInjectionContext(injector, () => new Login());
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should navigate to home when user exists', () => {
-    userServiceMock.login.mockReturnValue({ id: 1 });
+  it('should dispatch login action with email', () => {
     component.email.set('ivan@example.com');
 
     component.login();
 
-    expect(userServiceMock.login).toHaveBeenCalledWith('ivan@example.com');
-    expect(routerMock.navigate).toHaveBeenCalledWith(['/']);
+    expect(storeMock.dispatch).toHaveBeenCalledWith(
+      UserActions.login({ email: 'ivan@example.com' })
+    );
     expect(component.errorMessage()).toBe('');
   });
 
-  it('should set error message when user not found', () => {
-    userServiceMock.login.mockReturnValue(null);
-    component.email.set('missing@example.com');
-
-    component.login();
-
-    expect(routerMock.navigate).not.toHaveBeenCalled();
-    expect(component.errorMessage()).toBe('LOGIN.ERROR_USER_NOT_FOUND');
+  it('should initialize with empty error message', () => {
+    expect(component.errorMessage()).toBe('');
   });
 });

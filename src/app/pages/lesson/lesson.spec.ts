@@ -1,7 +1,8 @@
 import { EnvironmentInjector, input, runInInjectionContext } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { Courses } from '../../core/courses';
+import { Store } from '@ngrx/store';
+import { of } from 'rxjs';
 
 import { Lesson } from './lesson';
 
@@ -12,28 +13,33 @@ describe('Lesson', () => {
     navigate: vi.fn(),
   };
 
-  const coursesMock = {
-    getCourseById: vi.fn(),
+  const storeMock = {
+    select: vi.fn(() =>
+      of([
+        {
+          id: 1,
+          lessons: [
+            { id: 2, title: 'Lesson 2', videoUrl: 'video-2' },
+            { id: 3, title: 'Lesson 3', videoUrl: 'video-3' },
+          ],
+        },
+      ])
+    ),
+    dispatch: vi.fn(),
   };
 
   beforeEach(async () => {
     vi.restoreAllMocks();
     vi.clearAllMocks();
 
-    vi.spyOn(input, 'required').mockReturnValue((() => '2') as any);
-
-    coursesMock.getCourseById.mockReturnValue({
-      id: 1,
-      lessons: [
-        { id: 2, title: 'Lesson 2', videoUrl: 'video-2' },
-        { id: 3, title: 'Lesson 3', videoUrl: 'video-3' },
-      ],
-    });
+    vi.spyOn(input, 'required')
+      .mockReturnValueOnce((() => '1') as any)
+      .mockReturnValueOnce((() => '2') as any);
 
     await TestBed.configureTestingModule({
       providers: [
         { provide: Router, useValue: routerMock },
-        { provide: Courses, useValue: coursesMock },
+        { provide: Store, useValue: storeMock },
       ],
     });
 
@@ -48,7 +54,7 @@ describe('Lesson', () => {
   it('should navigate back to course', () => {
     component.goBack();
 
-    expect(routerMock.navigate).toHaveBeenCalledWith(['/course', '2']);
+    expect(routerMock.navigate).toHaveBeenCalledWith(['/course', '1']);
   });
 
   it('should navigate to next lesson when exists', () => {

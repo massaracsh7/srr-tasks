@@ -1,15 +1,17 @@
 import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { I18nService } from '../../core/i18n-service';
-import { UserService } from '../../core/user';
+import { Store } from '@ngrx/store';
+import { of } from 'rxjs';
 
 import { Profile } from './profile';
 
 describe('Profile', () => {
   let component: Profile;
 
-  const userServiceMock = {
-    currentUser: vi.fn(),
+  const storeMock = {
+    select: vi.fn(() => of(null)),
+    dispatch: vi.fn(),
   };
 
   const i18nServiceMock = {
@@ -23,7 +25,7 @@ describe('Profile', () => {
 
     await TestBed.configureTestingModule({
       providers: [
-        { provide: UserService, useValue: userServiceMock },
+        { provide: Store, useValue: storeMock },
         { provide: I18nService, useValue: i18nServiceMock },
       ],
     });
@@ -41,7 +43,7 @@ describe('Profile', () => {
   });
 
   it('should update language through i18n service', () => {
-    component.setLanguage('RU');
+    component.setLanguage({ target: { value: 'RU' } } as unknown as Event);
 
     expect(component.currentLang()).toBe('RU');
     expect(i18nServiceMock.setLanguage).toHaveBeenCalledWith('ru');

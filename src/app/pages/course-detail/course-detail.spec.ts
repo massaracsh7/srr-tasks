@@ -1,31 +1,31 @@
 import { EnvironmentInjector, input, runInInjectionContext } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { Courses } from '../../core/courses';
-import { UserService } from '../../core/user';
+import { Store } from '@ngrx/store';
+import { of } from 'rxjs';
+import { selectCourses } from '../../core/courses/courses.selectors';
 
 import { CourseDetail } from './course-detail';
 
 describe('CourseDetail', () => {
   let component: CourseDetail;
 
-  const coursesMock = {
-    getCourseById: vi.fn(),
-  };
-
-  const userServiceMock = {
-    currentUser: vi.fn(),
+  const storeMock = {
+    select: vi.fn((selector: unknown) => {
+      if (selector === selectCourses) {
+        return of([{ id: 1, title: 'Angular 20 Basics', description: '', lessons: [] }]);
+      }
+      return of(null);
+    }),
+    dispatch: vi.fn(),
   };
 
   beforeEach(async () => {
     vi.restoreAllMocks();
     vi.spyOn(input, 'required').mockReturnValue((() => '1') as any);
 
-    coursesMock.getCourseById.mockReturnValue({ id: 1, title: 'Angular 20 Basics' });
-
     await TestBed.configureTestingModule({
       providers: [
-        { provide: Courses, useValue: coursesMock },
-        { provide: UserService, useValue: userServiceMock },
+        { provide: Store, useValue: storeMock },
       ],
     });
 
