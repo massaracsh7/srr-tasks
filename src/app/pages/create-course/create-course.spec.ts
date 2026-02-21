@@ -1,4 +1,4 @@
-import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
+﻿import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 
 import { CreateCourse } from './create-course';
 
-describe('CreateCourse', () => {
+describe('Создание курса', () => {
   let component: CreateCourse;
 
   const storeMock = {
@@ -28,11 +28,11 @@ describe('CreateCourse', () => {
     component = runInInjectionContext(injector, () => new CreateCourse());
   });
 
-  it('should create', () => {
+  it('должен создаваться', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should build course payload and reset form', () => {
+  it('должен формировать данные курса и сбрасывать форму', () => {
     const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
     const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
 
@@ -53,3 +53,4 @@ describe('CreateCourse', () => {
     alertSpy.mockRestore();
   });
 });
+

@@ -1,4 +1,4 @@
-import { EnvironmentInjector, input, runInInjectionContext } from '@angular/core';
+﻿import { EnvironmentInjector, input, runInInjectionContext } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
@@ -6,7 +6,7 @@ import { selectCourses } from '../../core/courses/courses.selectors';
 
 import { CourseDetail } from './course-detail';
 
-describe('CourseDetail', () => {
+describe('Детали курса', () => {
   let component: CourseDetail;
 
   const storeMock = {
@@ -33,13 +33,14 @@ describe('CourseDetail', () => {
     component = runInInjectionContext(injector, () => new CourseDetail());
   });
 
-  it('should create', () => {
+  it('должен создаваться', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize signals', () => {
+  it('должен инициализировать сигналы', () => {
     expect(component.course()).toBeUndefined();
     expect(component.progress()).toBeGreaterThanOrEqual(0);
     expect(component.progress()).toBeLessThan(100);
   });
 });
+

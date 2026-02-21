@@ -1,4 +1,4 @@
-import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
+﻿import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Actions } from '@ngrx/effects';
 import { firstValueFrom, ReplaySubject } from 'rxjs';
@@ -6,8 +6,8 @@ import * as UserActions from './users/user.actions';
 import { UserEffects } from './users/user.effects';
 import { initialState, userReducer } from './users/user.reducer';
 
-describe('User reducer (legacy path)', () => {
-  it('sets current user on loginSuccess', () => {
+describe('Редьюсер пользователя ()', () => {
+  it('устанавливает текущего пользователя при успешном входе', () => {
     const state = userReducer(
       initialState,
       UserActions.loginSuccess({
@@ -18,7 +18,7 @@ describe('User reducer (legacy path)', () => {
     expect(state.currentUser?.email).toBe('ivan@example.com');
   });
 
-  it('clears current user on logoutSuccess', () => {
+  it('очищает текущего пользователя при успешном выходе', () => {
     const loggedInState = userReducer(
       initialState,
       UserActions.loginSuccess({
@@ -31,7 +31,7 @@ describe('User reducer (legacy path)', () => {
   });
 });
 
-describe('UserEffects', () => {
+describe('Эффекты пользователя', () => {
   let actions$: ReplaySubject<any>;
 
   function createEffects() {
@@ -54,7 +54,7 @@ describe('UserEffects', () => {
     });
   });
 
-  it('login$ emits loginSuccess with user and stores user in localStorage', async () => {
+  it('поток входа возвращает пользователя и сохраняет его в локальном хранилище', async () => {
     const setItemSpy = vi.spyOn(Storage.prototype, 'setItem');
     const effects = createEffects();
     const actionPromise = firstValueFrom(effects.login$);
@@ -66,7 +66,7 @@ describe('UserEffects', () => {
     expect(setItemSpy).toHaveBeenCalledTimes(1);
   });
 
-  it('login$ emits loginSuccess with null and clears localStorage for unknown user', async () => {
+  it('поток входа возвращает пустое значение и очищает локальное хранилище для неизвестного пользователя', async () => {
     localStorage.setItem('currentUser', JSON.stringify({ email: 'old@example.com' }));
     const removeItemSpy = vi.spyOn(Storage.prototype, 'removeItem');
     const effects = createEffects();
@@ -78,7 +78,7 @@ describe('UserEffects', () => {
     expect(removeItemSpy).toHaveBeenCalledWith('currentUser');
   });
 
-  it('logout$ emits logoutSuccess and removes currentUser when present', async () => {
+  it('поток выхода подтверждает выход и удаляет текущего пользователя при наличии', async () => {
     localStorage.setItem('currentUser', JSON.stringify({ email: 'ivan@example.com' }));
     const removeItemSpy = vi.spyOn(Storage.prototype, 'removeItem');
     const effects = createEffects();
@@ -90,7 +90,7 @@ describe('UserEffects', () => {
     expect(removeItemSpy).toHaveBeenCalledWith('currentUser');
   });
 
-  it('restoreSession$ emits nothing when currentUser is absent in localStorage', () => {
+  it('восстановление сессии ничего не возвращает, если в локальном хранилище нет текущего пользователя', () => {
     const effects = createEffects();
     const emitted: any[] = [];
 
@@ -99,7 +99,7 @@ describe('UserEffects', () => {
     expect(emitted).toEqual([]);
   });
 
-  it('restoreSession$ emits loginSuccess for valid stored user', () => {
+  it('восстановление сессии выполняет вход для валидного сохраненного пользователя', () => {
     localStorage.setItem(
       'currentUser',
       JSON.stringify({ id: 1, name: 'Ivan Ivanov', email: 'ivan@example.com', role: 'student' })
@@ -116,7 +116,7 @@ describe('UserEffects', () => {
     ]);
   });
 
-  it('restoreSession$ emits logoutSuccess and clears localStorage for unknown stored user', () => {
+  it('восстановление сессии выполняет выход и очищает локальное хранилище для неизвестного сохраненного пользователя', () => {
     localStorage.setItem(
       'currentUser',
       JSON.stringify({ id: 999, name: 'Ghost', email: 'ghost@example.com', role: 'student' })
@@ -131,3 +131,4 @@ describe('UserEffects', () => {
     expect(removeItemSpy).toHaveBeenCalledWith('currentUser');
   });
 });
+

@@ -1,4 +1,4 @@
-import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
+﻿import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { provideStore, Store } from '@ngrx/store';
@@ -6,7 +6,7 @@ import * as UserActions from '../../core/users/user.actions';
 import { userReducer } from '../../core/users/user.reducer';
 import { Login } from './login';
 
-describe('Login (integration)', () => {
+describe('Вход (интеграционный тест)', () => {
   let component: Login;
   let store: Store;
 
@@ -29,7 +29,7 @@ describe('Login (integration)', () => {
     component = runInInjectionContext(injector, () => new Login());
   });
 
-  it('dispatches login action', () => {
+  it('отправляет действие входа', () => {
     const dispatchSpy = vi.spyOn(store, 'dispatch');
     component.email.set('ivan@example.com');
 
@@ -39,7 +39,7 @@ describe('Login (integration)', () => {
     expect(component.errorMessage()).toBe('');
   });
 
-  it('creates component when store already has current user', () => {
+  it('создает компонент, когда в хранилище уже есть текущий пользователь', () => {
     store.dispatch(
       UserActions.loginSuccess({
         user: { id: 1, name: 'Ivan Ivanov', email: 'ivan@example.com', role: 'student' },
@@ -52,3 +52,4 @@ describe('Login (integration)', () => {
     expect(component).toBeTruthy();
   });
 });
+
