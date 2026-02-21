@@ -1,22 +1,16 @@
 import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { Store } from '@ngxs/store';
-import { of } from 'rxjs';
-import { Login as LoginAction } from '../../core/users/user.state';
+import { provideStore, Store } from '@ngxs/store';
+import { Login as LoginAction, UserState } from '../../core/users/user.state';
 import { Login } from './login';
 
-describe('Login', () => {
+describe('Login (integration)', () => {
   let component: Login;
+  let store: Store;
 
   const routerMock = {
     navigate: vi.fn(),
-  };
-
-  const storeMock = {
-    select: vi.fn(() => of(null)),
-    dispatch: vi.fn(),
-    selectSnapshot: vi.fn(() => null),
   };
 
   beforeEach(async () => {
@@ -24,31 +18,32 @@ describe('Login', () => {
 
     await TestBed.configureTestingModule({
       providers: [
+        provideStore([UserState]),
         { provide: Router, useValue: routerMock },
-        { provide: Store, useValue: storeMock },
       ],
     });
 
+    store = TestBed.inject(Store);
     const injector = TestBed.inject(EnvironmentInjector);
     component = runInInjectionContext(injector, () => new Login());
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('should dispatch login action with email', () => {
+  it('dispatches login action', () => {
+    const dispatchSpy = vi.spyOn(store, 'dispatch');
     component.email.set('ivan@example.com');
 
     component.login();
 
-    expect(storeMock.dispatch).toHaveBeenCalledWith(
-      new LoginAction('ivan@example.com')
-    );
+    expect(dispatchSpy).toHaveBeenCalledWith(new LoginAction('ivan@example.com'));
     expect(component.errorMessage()).toBe('');
   });
 
-  it('should initialize with empty error message', () => {
-    expect(component.errorMessage()).toBe('');
+  it('creates component when store already has current user', () => {
+    store.dispatch(new LoginAction('ivan@example.com'));
+
+    const injector = TestBed.inject(EnvironmentInjector);
+    component = runInInjectionContext(injector, () => new Login());
+
+    expect(component).toBeTruthy();
   });
 });

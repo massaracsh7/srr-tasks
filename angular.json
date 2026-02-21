@@ -79,26 +79,9 @@
           "builder": "@angular/build:extract-i18n"
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@analogjs/vitest-angular:test",
           "options": {
-            "polyfills": ["zone.js", "zone.js/testing"],
-            "tsConfig": "tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              },
-              {
-                "glob": "**/*",
-                "input": "src/assets",
-                "output": "/assets"
-              }
-            ],
-            "styles": [  "node_modules/primeng/resources/themes/saga-blue/theme.css",
-  "node_modules/primeng/resources/primeng.min.css",
-  "node_modules/primeicons/primeicons.css",
-  "src/styles.scss"]
+            "configFile": "vitest.config.ts"
           }
         }
       }

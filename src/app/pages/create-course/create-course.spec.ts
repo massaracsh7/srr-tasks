@@ -1,23 +1,55 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { FormBuilder } from '@angular/forms';
+import { Store } from '@ngxs/store';
+import { of } from 'rxjs';
 
 import { CreateCourse } from './create-course';
 
 describe('CreateCourse', () => {
   let component: CreateCourse;
-  let fixture: ComponentFixture<CreateCourse>;
+
+  const storeMock = {
+    select: vi.fn(() => of(null)),
+    dispatch: vi.fn(),
+  };
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [CreateCourse]
-    })
-    .compileComponents();
+    vi.clearAllMocks();
 
-    fixture = TestBed.createComponent(CreateCourse);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    await TestBed.configureTestingModule({
+      providers: [
+        FormBuilder,
+        { provide: Store, useValue: storeMock },
+      ],
+    });
+
+    const injector = TestBed.inject(EnvironmentInjector);
+    component = runInInjectionContext(injector, () => new CreateCourse());
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should build course payload and reset form', () => {
+    const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
+
+    component.form.setValue({
+      title: 'Angular',
+      description: 'Course description',
+      goals: 'Signals, Routing',
+      lessons: 'Intro, Components',
+    });
+
+    component.saveCourse();
+
+    expect(logSpy).toHaveBeenCalled();
+    expect(alertSpy).toHaveBeenCalled();
+    expect(component.form.value.title).toBeNull();
+
+    logSpy.mockRestore();
+    alertSpy.mockRestore();
   });
 });
