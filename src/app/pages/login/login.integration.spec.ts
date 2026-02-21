@@ -1,11 +1,11 @@
-import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
+﻿import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { provideStore, Store } from '@ngxs/store';
 import { Login as LoginAction, UserState } from '../../core/users/user.state';
 import { Login } from './login';
 
-describe('Login (integration)', () => {
+describe('Вход (интеграционный тест)', () => {
   let component: Login;
   let store: Store;
 
@@ -28,7 +28,7 @@ describe('Login (integration)', () => {
     component = runInInjectionContext(injector, () => new Login());
   });
 
-  it('dispatches login action', () => {
+  it('отправляет действие входа', () => {
     const dispatchSpy = vi.spyOn(store, 'dispatch');
     component.email.set('ivan@example.com');
 
@@ -38,7 +38,7 @@ describe('Login (integration)', () => {
     expect(component.errorMessage()).toBe('');
   });
 
-  it('creates component when store already has current user', () => {
+  it('создает компонент, когда в хранилище уже есть текущий пользователь', () => {
     store.dispatch(new LoginAction('ivan@example.com'));
 
     const injector = TestBed.inject(EnvironmentInjector);
@@ -47,3 +47,4 @@ describe('Login (integration)', () => {
     expect(component).toBeTruthy();
   });
 });
+

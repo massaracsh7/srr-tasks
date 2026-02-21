@@ -1,15 +1,16 @@
-import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
+﻿import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { HighlightNewLesson } from './highlight-new-lesson';
 
-describe('HighlightNewLesson', () => {
+describe('Подсветка нового урока', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({});
   });
 
-  it('should create an instance', () => {
+  it('должен создавать экземпляр', () => {
     const injector = TestBed.inject(EnvironmentInjector);
     const directive = runInInjectionContext(injector, () => new HighlightNewLesson());
     expect(directive).toBeTruthy();
   });
 });
+

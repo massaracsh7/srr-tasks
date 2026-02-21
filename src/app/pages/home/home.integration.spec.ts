@@ -1,10 +1,10 @@
-import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
+﻿import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideStore, Store } from '@ngxs/store';
 import { CourseState, SetFilters } from '../../core/courses/courses.state';
 import { Home } from './home';
 
-describe('Home (integration)', () => {
+describe('Home(интеграционный тест)', () => {
   let component: Home;
   let store: Store;
 
@@ -18,13 +18,13 @@ describe('Home (integration)', () => {
     component = runInInjectionContext(injector, () => new Home());
   });
 
-  it('returns all courses by default', () => {
+  it('возвращает все курсы по умолчанию', () => {
     const filtered = component.filteredCourses();
 
     expect(Array.isArray(filtered)).toBe(true);
   });
 
-  it('filters by category', () => {
+  it('фильтрует по категории', () => {
     const dispatchSpy = vi.spyOn(store, 'dispatch');
     component.category = 'Frontend';
     component.updateFilters();
@@ -34,7 +34,7 @@ describe('Home (integration)', () => {
     );
   });
 
-  it('filters by multiple criteria', () => {
+  it('фильтрует по нескольким критериям', () => {
     const dispatchSpy = vi.spyOn(store, 'dispatch');
     component.category = 'Programming';
     component.difficulty = 'Advanced';
@@ -46,3 +46,4 @@ describe('Home (integration)', () => {
     );
   });
 });
+

@@ -1,11 +1,11 @@
-import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
+﻿import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { provideStore, Store } from '@ngxs/store';
 import { authGuard } from './auth-guard';
 import { Login, UserState } from './users/user.state';
 
-describe('authGuard (integration)', () => {
+describe('Гард авторизации (интеграционный тест)', () => {
   let store: Store;
 
   const routerMock = {
@@ -26,7 +26,7 @@ describe('authGuard (integration)', () => {
     store = TestBed.inject(Store);
   });
 
-  it('returns false and redirects to /login when user is not authenticated', () => {
+  it('возвращает ложь и перенаправляет на страницу входа, когда пользователь не аутентифицирован', () => {
     const injector = TestBed.inject(EnvironmentInjector);
     const result = runInInjectionContext(injector, () => authGuard({} as any, {} as any));
 
@@ -34,7 +34,7 @@ describe('authGuard (integration)', () => {
     expect(routerMock.navigate).toHaveBeenCalledWith(['/login']);
   });
 
-  it('returns true and does not navigate when user is authenticated', () => {
+  it('возвращает истину и не выполняет навигацию, когда пользователь аутентифицирован', () => {
     store.dispatch(new Login('ivan@example.com'));
 
     const injector = TestBed.inject(EnvironmentInjector);
@@ -44,3 +44,4 @@ describe('authGuard (integration)', () => {
     expect(routerMock.navigate).not.toHaveBeenCalled();
   });
 });
+

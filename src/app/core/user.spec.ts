@@ -1,6 +1,6 @@
-import { UserState, Login, Logout, type UserStateModel } from './users/user.state';
+﻿import { UserState, Login, Logout, type UserStateModel } from './users/user.state';
 
-describe('UserState', () => {
+describe('User', () => {
   let state: UserState;
   let patchState: ReturnType<typeof vi.fn>;
   let ctx: { patchState: (val: Partial<UserStateModel>) => void };
@@ -13,7 +13,7 @@ describe('UserState', () => {
     vi.restoreAllMocks();
   });
 
-  it('Login sets currentUser and stores it in localStorage for known email', () => {
+  it('вход устанавливает текущего пользователя и сохраняет его в локальном хранилище для известного адреса', () => {
     state.login(ctx as any, new Login('ivan@example.com'));
 
     expect(patchState).toHaveBeenCalledWith({
@@ -27,7 +27,7 @@ describe('UserState', () => {
     });
   });
 
-  it('Login sets currentUser to null and removes localStorage for unknown email', () => {
+  it('вход устанавливает пустого пользователя и очищает локальное хранилище для неизвестного адреса', () => {
     localStorage.setItem('currentUser', JSON.stringify({ email: 'old@example.com' }));
     const removeItemSpy = vi.spyOn(Storage.prototype, 'removeItem');
 
@@ -38,7 +38,7 @@ describe('UserState', () => {
     expect(localStorage.getItem('currentUser')).toBeNull();
   });
 
-  it('Logout clears currentUser and removes localStorage key', () => {
+  it('выход очищает текущего пользователя и удаляет ключ из локального хранилища', () => {
     localStorage.setItem('currentUser', JSON.stringify({ email: 'ivan@example.com' }));
     const removeItemSpy = vi.spyOn(Storage.prototype, 'removeItem');
 
@@ -48,13 +48,13 @@ describe('UserState', () => {
     expect(removeItemSpy).toHaveBeenCalledWith('currentUser');
   });
 
-  it('ngxsOnInit does nothing when localStorage has no currentUser', () => {
+  it('инициализация ничего не делает, когда в локальном хранилище нет текущего пользователя', () => {
     state.ngxsOnInit(ctx as any);
 
     expect(patchState).not.toHaveBeenCalled();
   });
 
-  it('ngxsOnInit restores currentUser from localStorage', () => {
+  it('инициализация восстанавливает текущего пользователя из локального хранилища', () => {
     localStorage.setItem(
       'currentUser',
       JSON.stringify({ id: 2, name: 'Anna Petrova', email: 'anna@example.com', role: 'teacher' })
@@ -67,7 +67,7 @@ describe('UserState', () => {
     });
   });
 
-  it('currentUser selector returns state currentUser', () => {
+  it('селектор текущего пользователя возвращает текущего пользователя из состояния', () => {
     const model: UserStateModel = {
       currentUser: { id: 1, name: 'Ivan Ivanov', email: 'ivan@example.com', role: 'student' },
     };
@@ -75,3 +75,5 @@ describe('UserState', () => {
     expect(UserState.currentUser(model)?.email).toBe('ivan@example.com');
   });
 });
+
+

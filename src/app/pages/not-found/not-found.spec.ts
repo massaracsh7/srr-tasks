@@ -1,10 +1,10 @@
-import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
+﻿import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 
 import { NotFound } from './not-found';
 
-describe('NotFound', () => {
+describe('Страница не найдена', () => {
   let component: NotFound;
 
   const routerMock = {
@@ -22,13 +22,14 @@ describe('NotFound', () => {
     component = runInInjectionContext(injector, () => new NotFound());
   });
 
-  it('should create', () => {
+  it('должен создаваться', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should navigate home', () => {
+  it('должен переходить на главную страницу', () => {
     component.goHome();
 
     expect(routerMock.navigate).toHaveBeenCalledWith(['/']);
   });
 });
+

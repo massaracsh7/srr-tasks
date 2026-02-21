@@ -1,4 +1,4 @@
-import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
+﻿import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 import { Login as LoginAction } from '../../core/users/user.state';
 import { Login } from './login';
 
-describe('Login', () => {
+describe('Вход', () => {
   let component: Login;
 
   const routerMock = {
@@ -33,11 +33,11 @@ describe('Login', () => {
     component = runInInjectionContext(injector, () => new Login());
   });
 
-  it('should create', () => {
+  it('должен создаваться', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should dispatch login action with email', () => {
+  it('должен отправлять действие входа с адресом электронной почты', () => {
     component.email.set('ivan@example.com');
 
     component.login();
@@ -48,7 +48,8 @@ describe('Login', () => {
     expect(component.errorMessage()).toBe('');
   });
 
-  it('should initialize with empty error message', () => {
+  it('должен инициализироваться с пустым сообщением об ошибке', () => {
     expect(component.errorMessage()).toBe('');
   });
 });
+

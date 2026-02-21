@@ -1,4 +1,4 @@
-import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
+﻿import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { I18nService } from '../../core/i18n-service';
 import { Store } from '@ngxs/store';
@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 
 import { Profile } from './profile';
 
-describe('Profile', () => {
+describe('Профиль', () => {
   let component: Profile;
 
   const storeMock = {
@@ -34,18 +34,19 @@ describe('Profile', () => {
     component = runInInjectionContext(injector, () => new Profile());
   });
 
-  it('should create', () => {
+  it('должен создаваться', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize currentLang from i18n service', () => {
+  it('должен инициализировать текущий язык из сервиса интернационализации', () => {
     expect(component.currentLang()).toBe('EN');
   });
 
-  it('should update language through i18n service', () => {
+  it('должен обновлять язык через сервис интернационализации', () => {
     component.setLanguage({ target: { value: 'RU' } } as unknown as Event);
 
     expect(component.currentLang()).toBe('RU');
     expect(i18nServiceMock.setLanguage).toHaveBeenCalledWith('ru');
   });
 });
+

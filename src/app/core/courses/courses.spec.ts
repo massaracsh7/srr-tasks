@@ -1,7 +1,7 @@
-import { CourseState, SetCourses, SetFilters, type CoursesStateModel } from './courses.state';
+﻿import { CourseState, SetCourses, SetFilters, type CoursesStateModel } from './courses.state';
 import type { Course } from '../../models/course.model';
 
-describe('CourseState', () => {
+describe('Состояние курсов', () => {
   let state: CourseState;
   let patchState: ReturnType<typeof vi.fn>;
   let ctx: { patchState: (val: Partial<CoursesStateModel>) => void };
@@ -42,7 +42,7 @@ describe('CourseState', () => {
     ctx = { patchState };
   });
 
-  it('SetFilters updates filters in state context', () => {
+  it('обновляет фильтры в состоянии', () => {
     state.setFilters(ctx as any, new SetFilters({ category: 'Frontend', language: 'EN' }));
 
     expect(patchState).toHaveBeenCalledWith({
@@ -50,7 +50,7 @@ describe('CourseState', () => {
     });
   });
 
-  it('filteredCourses selector filters by category/difficulty/language', () => {
+  it('селектор отфильтрованных курсов фильтрует по категории, сложности и языку', () => {
     const model: CoursesStateModel = {
       courses,
       filters: { category: 'Frontend', difficulty: 'Beginner', language: 'EN' },
@@ -62,7 +62,7 @@ describe('CourseState', () => {
     expect(result[0].id).toBe(1);
   });
 
-  it('courseById selector returns course for existing id and undefined for missing id', () => {
+  it('селектор поиска курса по идентификатору возвращает курс для существующего идентификатора и пустое значение для отсутствующего', () => {
     const model: CoursesStateModel = { courses, filters: {} };
     const selector = CourseState.courseById(model);
 
@@ -70,7 +70,7 @@ describe('CourseState', () => {
     expect(selector(999)).toBeUndefined();
   });
 
-  it('lessonByIds selector returns lesson for existing ids and undefined for missing ids', () => {
+  it('селектор поиска урока по идентификаторам возвращает урок для существующих идентификаторов и пустое значение для отсутствующих', () => {
     const model: CoursesStateModel = { courses, filters: {} };
     const selector = CourseState.lessonByIds(model);
 
@@ -79,9 +79,11 @@ describe('CourseState', () => {
     expect(selector(999, 1)).toBeUndefined();
   });
 
-  it('SetCourses updates courses in state context', () => {
+  it('обновляет курсы в состоянии', () => {
     state.setCourses(ctx as any, new SetCourses(courses));
 
     expect(patchState).toHaveBeenCalledWith({ courses });
   });
 });
+
+
