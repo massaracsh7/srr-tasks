@@ -1,23 +1,37 @@
 import { TestBed } from '@angular/core/testing';
+import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { App } from './app';
 
 describe('App', () => {
+  const translateServiceMock = {
+    addLangs: vi.fn(),
+    setFallbackLang: vi.fn(),
+    use: vi.fn(),
+  };
+
   beforeEach(async () => {
+    vi.clearAllMocks();
+
     await TestBed.configureTestingModule({
-      imports: [App],
-    }).compileComponents();
+      providers: [{ provide: TranslateService, useValue: translateServiceMock }],
+    });
   });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(App);
-    const app = fixture.componentInstance;
+    const injector = TestBed.inject(EnvironmentInjector);
+    const app = runInInjectionContext(injector, () => new App());
+
     expect(app).toBeTruthy();
+    expect((app as any).title).toBe('srr-tasks');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(App);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, srr-tasks');
+  it('should initialize translations in constructor', () => {
+    const injector = TestBed.inject(EnvironmentInjector);
+    runInInjectionContext(injector, () => new App());
+
+    expect(translateServiceMock.addLangs).toHaveBeenCalledWith(['ru', 'en']);
+    expect(translateServiceMock.setFallbackLang).toHaveBeenCalledWith('en');
+    expect(translateServiceMock.use).toHaveBeenCalledWith('en');
   });
 });
