@@ -1,9 +1,9 @@
-import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
+﻿import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Courses } from '../../core/courses';
 import { Home } from './home';
 
-describe('Home (integration)', () => {
+describe('Главная страница (интеграция)', () => {
   let component: Home;
   let coursesService: Courses;
 
@@ -15,14 +15,14 @@ describe('Home (integration)', () => {
     component = runInInjectionContext(injector, () => new Home());
   });
 
-  it('returns all courses by default', () => {
+  it('возвращает все курсы по умолчанию', () => {
     const all = coursesService.courses();
     const filtered = component.filteredCourses();
 
     expect(filtered.length).toBe(all.length);
   });
 
-  it('filters by category', () => {
+  it('фильтрует по категории', () => {
     component.category.set('Frontend');
 
     const filtered = component.filteredCourses();
@@ -31,7 +31,7 @@ describe('Home (integration)', () => {
     expect(filtered.every(c => c.category === 'Frontend')).toBe(true);
   });
 
-  it('filters by multiple criteria', () => {
+  it('фильтрует по нескольким критериям', () => {
     component.category.set('Programming');
     component.difficulty.set('Advanced');
     component.language.set('EN');
@@ -49,3 +49,4 @@ describe('Home (integration)', () => {
     ).toBe(true);
   });
 });
+

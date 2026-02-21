@@ -1,11 +1,11 @@
-import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
+﻿import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { I18nService } from '../../core/i18n-service';
 import { UserService } from '../../core/user';
 
 import { Profile } from './profile';
 
-describe('Profile', () => {
+describe('Профиль', () => {
   let component: Profile;
 
   const userServiceMock = {
@@ -32,18 +32,19 @@ describe('Profile', () => {
     component = runInInjectionContext(injector, () => new Profile());
   });
 
-  it('should create', () => {
+  it('должен создаваться', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize currentLang from i18n service', () => {
+  it('должен инициализировать currentLang из сервиса i18n', () => {
     expect(component.currentLang()).toBe('EN');
   });
 
-  it('should update language through i18n service', () => {
+  it('должен обновлять язык через сервис i18n', () => {
     component.setLanguage('RU');
 
     expect(component.currentLang()).toBe('RU');
     expect(i18nServiceMock.setLanguage).toHaveBeenCalledWith('ru');
   });
 });
+

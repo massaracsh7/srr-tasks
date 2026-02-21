@@ -1,8 +1,8 @@
-import { TestBed } from '@angular/core/testing';
+﻿import { TestBed } from '@angular/core/testing';
 
 import { Courses } from './courses';
 
-describe('Courses', () => {
+describe('Курсы', () => {
   let service: Courses;
 
   beforeEach(() => {
@@ -10,25 +10,25 @@ describe('Courses', () => {
     service = TestBed.inject(Courses);
   });
 
-  it('should be created', () => {
+  it('должен создаваться', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should return course by id', () => {
+  it('должен возвращать курс по id', () => {
     const course = service.getCourseById(1);
 
     expect(course).toBeTruthy();
     expect(course?.id).toBe(1);
   });
 
-  it('should filter courses by category', () => {
+  it('должен фильтровать курсы по категории', () => {
     const result = service.filterCourses({ category: 'Frontend' });
 
     expect(result.length).toBeGreaterThan(0);
     expect(result.every(c => c.category === 'Frontend')).toBe(true);
   });
 
-  it('should return empty array for non-matching filters', () => {
+  it('должен возвращать пустой массив при несовпадающих фильтрах', () => {
     const result = service.filterCourses({
       category: 'Backend',
       difficulty: 'Beginner',
@@ -38,3 +38,4 @@ describe('Courses', () => {
     expect(result).toEqual([]);
   });
 });
+

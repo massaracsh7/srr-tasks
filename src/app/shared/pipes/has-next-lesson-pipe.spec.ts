@@ -1,12 +1,12 @@
-import { HasNextLessonPipe } from './has-next-lesson-pipe';
+﻿import { HasNextLessonPipe } from './has-next-lesson-pipe';
 
-describe('HasNextLessonPipe', () => {
-  it('create an instance', () => {
+describe('Pipe HasNextLesson', () => {
+  it('создает экземпляр', () => {
     const pipe = new HasNextLessonPipe();
     expect(pipe).toBeTruthy();
   });
 
-  it('returns true when next lesson exists', () => {
+  it('возвращает true, когда следующий урок существует', () => {
     const pipe = new HasNextLessonPipe();
     const course = { lessons: [{ id: 1 }, { id: 2 }] } as any;
     const lesson = { id: 1 } as any;
@@ -14,7 +14,7 @@ describe('HasNextLessonPipe', () => {
     expect(pipe.transform(course, lesson)).toBe(true);
   });
 
-  it('returns false for last and missing lesson', () => {
+  it('возвращает false для последнего или отсутствующего урока', () => {
     const pipe = new HasNextLessonPipe();
     const course = { lessons: [{ id: 1 }, { id: 2 }] } as any;
 
@@ -22,3 +22,4 @@ describe('HasNextLessonPipe', () => {
     expect(pipe.transform(course, { id: 99 } as any)).toBe(false);
   });
 });
+

@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+﻿import { TestBed } from '@angular/core/testing';
 import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../core/user';
@@ -30,19 +30,20 @@ describe('Header', () => {
     component = runInInjectionContext(injector, () => new Header());
   });
 
-  it('should create', () => {
+  it('должен создаваться', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should navigate to route', () => {
+  it('должен выполнять переход по роуту', () => {
     component.navigate('/home');
 
     expect(routerMock.navigate).toHaveBeenCalledWith(['/home']);
   });
 
-  it('should call logout on user service', () => {
+  it('должен вызывать logout в сервисе пользователя', () => {
     component.logout();
 
     expect(userServiceMock.logout).toHaveBeenCalled();
   });
 });
+

@@ -1,4 +1,4 @@
-import { expect, test, Page } from '@playwright/test';
+﻿import { expect, test, Page } from '@playwright/test';
 
 async function loginViaUi(page: Page, email: string) {
   await page.goto('/login');
@@ -17,8 +17,8 @@ async function authAs(page: Page, email: string) {
   }, email);
 }
 
-test.describe('User e2e flows', () => {
-  test('guest can open catalog and navigate to login from header', async ({ page }) => {
+test.describe('Пользовательские e2e-сценарии', () => {
+  test('гость может открыть каталог и перейти на логин из хедера', async ({ page }) => {
     await page.goto('/');
     await expect(page.getByRole('heading', { name: 'Course catalog' })).toBeVisible();
 
@@ -26,7 +26,7 @@ test.describe('User e2e flows', () => {
     await expect(page).toHaveURL(/\/login$/);
   });
 
-  test('guest is redirected to login from protected routes', async ({ page }) => {
+  test('гость перенаправляется на логин с защищенных роутов', async ({ page }) => {
     await page.goto('/profile');
     await expect(page).toHaveURL(/\/login$/);
 
@@ -37,14 +37,14 @@ test.describe('User e2e flows', () => {
     await expect(page).toHaveURL(/\/login$/);
   });
 
-  test('login shows error for unknown user', async ({ page }) => {
+  test('логин показывает ошибку для неизвестного пользователя', async ({ page }) => {
     await loginViaUi(page, 'unknown@example.com');
 
     await expect(page).toHaveURL(/\/login$/);
     await expect(page.getByText('Error: LOGIN.ERROR_USER_NOT_FOUND')).toBeVisible();
   });
 
-  test('student can login, open profile and logout', async ({ page }) => {
+  test('студент может войти, открыть профиль и выйти', async ({ page }) => {
     await loginViaUi(page, 'ivan@example.com');
     await expect(page).toHaveURL(/\/$/);
 
@@ -57,7 +57,7 @@ test.describe('User e2e flows', () => {
     await expect(page.getByRole('button', { name: 'Login' })).toBeVisible();
   });
 
-  test('student can open course details and navigate between lessons', async ({ page }) => {
+  test('студент может открыть детали курса и переходить между уроками', async ({ page }) => {
     await authAs(page, 'ivan@example.com');
 
     await page.locator('app-course-card').first().getByRole('button', { name: 'Toggle Card' }).click();
@@ -70,14 +70,14 @@ test.describe('User e2e flows', () => {
     await expect(page).toHaveURL(/\/course\/1\/1$/);
     await expect(page.locator('.lesson-container')).toBeVisible();
 
-    await page.getByRole('button', { name: /Next lesson|След/ }).click();
+    await page.locator('.lesson-buttons .p-button-success').click();
     await expect(page).toHaveURL(/\/course\/1\/2$/);
 
-    await page.getByRole('button', { name: /Back to course|Вернут/ }).click();
+    await page.locator('.lesson-buttons .p-button-outlined').click();
     await expect(page).toHaveURL(/\/course\/1$/);
   });
 
-  test('student sees access denied on create course', async ({ page }) => {
+  test('студент видит отказ в доступе при создании курса', async ({ page }) => {
     await authAs(page, 'ivan@example.com');
 
     await page.getByRole('button', { name: 'Create course' }).click();
@@ -86,7 +86,7 @@ test.describe('User e2e flows', () => {
     await expect(page.locator('#title')).toHaveCount(0);
   });
 
-  test('guest can filter courses by category', async ({ page }) => {
+  test('гость может фильтровать курсы по категории', async ({ page }) => {
     await page.goto('/');
     await expect(page.locator('app-course-card')).toHaveCount(2);
 
@@ -98,7 +98,7 @@ test.describe('User e2e flows', () => {
     await expect(page.getByText('Advanced TypeScript')).toHaveCount(0);
   });
 
-  test('student can switch profile language to RU', async ({ page }) => {
+  test('студент может переключить язык профиля на RU', async ({ page }) => {
     await authAs(page, 'ivan@example.com');
 
     await page.getByRole('button', { name: 'Profile' }).click();
@@ -114,7 +114,7 @@ test.describe('User e2e flows', () => {
     })).toBe('ru');
   });
 
-  test('student cannot go to next lesson from the last lesson', async ({ page }) => {
+  test('студент не может перейти к следующему уроку с последнего урока', async ({ page }) => {
     await authAs(page, 'ivan@example.com');
 
     await page.locator('app-course-card').first().getByRole('button', { name: 'Toggle Card' }).click();
@@ -125,7 +125,7 @@ test.describe('User e2e flows', () => {
     await expect(nextButton).toBeDisabled();
   });
 
-  test('teacher can open create course and submit valid form', async ({ page }) => {
+  test('преподаватель может открыть создание курса и отправить валидную форму', async ({ page }) => {
     await authAs(page, 'anna@example.com');
 
     await page.getByRole('button', { name: 'Create course' }).click();
@@ -152,7 +152,7 @@ test.describe('User e2e flows', () => {
     await expect(page.locator('#description')).toHaveValue('');
   });
 
-  test('unknown route opens not found page and can return home', async ({ page }) => {
+  test('неизвестный роут открывает страницу 404 и позволяет вернуться на главную', async ({ page }) => {
     await page.goto('/this-route-does-not-exist');
     await expect(page.getByRole('heading', { name: 'Page not found' })).toBeVisible();
     await expect(page.getByText('Sorry, the page you are looking for does not exist.')).toBeVisible();
@@ -161,3 +161,4 @@ test.describe('User e2e flows', () => {
     await expect(page).toHaveURL(/\/$/);
   });
 });
+

@@ -1,11 +1,11 @@
-import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
+﻿import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { UserService } from '../../core/user';
 
 import { CreateCourse } from './create-course';
 
-describe('CreateCourse', () => {
+describe('Создание курса', () => {
   let component: CreateCourse;
 
   const userServiceMock = {
@@ -26,11 +26,11 @@ describe('CreateCourse', () => {
     component = runInInjectionContext(injector, () => new CreateCourse());
   });
 
-  it('should create', () => {
+  it('должен создаваться', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should build course payload and reset form', () => {
+  it('должен собирать payload курса и сбрасывать форму', () => {
     const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
     const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
 
@@ -51,3 +51,4 @@ describe('CreateCourse', () => {
     alertSpy.mockRestore();
   });
 });
+

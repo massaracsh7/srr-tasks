@@ -1,11 +1,11 @@
-import { EnvironmentInjector, input, runInInjectionContext } from '@angular/core';
+﻿import { EnvironmentInjector, input, runInInjectionContext } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { Courses } from '../../core/courses';
 
 import { Lesson } from './lesson';
 
-describe('Lesson', () => {
+describe('Урок', () => {
   let component: Lesson;
 
   const routerMock = {
@@ -41,17 +41,17 @@ describe('Lesson', () => {
     component = runInInjectionContext(injector, () => new Lesson());
   });
 
-  it('should create', () => {
+  it('должен создаваться', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should navigate back to course', () => {
+  it('должен возвращаться к курсу', () => {
     component.goBack();
 
     expect(routerMock.navigate).toHaveBeenCalledWith(['/course', '2']);
   });
 
-  it('should navigate to next lesson when exists', () => {
+  it('должен переходить к следующему уроку, когда он существует', () => {
     component.course.set({
       id: 1,
       lessons: [
@@ -66,3 +66,4 @@ describe('Lesson', () => {
     expect(routerMock.navigate).toHaveBeenCalledWith(['/course', 1, 3]);
   });
 });
+

@@ -1,10 +1,10 @@
-import { EnvironmentInjector, runInInjectionContext, signal } from '@angular/core';
+﻿import { EnvironmentInjector, runInInjectionContext, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { authGuard } from './auth-guard';
 import { UserService } from './user';
 
-describe('authGuard (integration)', () => {
+describe('authGuard (интеграция)', () => {
   const routerMock = {
     navigate: vi.fn(),
   };
@@ -25,7 +25,7 @@ describe('authGuard (integration)', () => {
     });
   });
 
-  it('returns false and redirects to /login when user is not authenticated', () => {
+  it('возвращает false и перенаправляет на /login, когда пользователь не аутентифицирован', () => {
     const injector = TestBed.inject(EnvironmentInjector);
     const result = runInInjectionContext(injector, () => authGuard({} as any, {} as any));
 
@@ -33,7 +33,7 @@ describe('authGuard (integration)', () => {
     expect(routerMock.navigate).toHaveBeenCalledWith(['/login']);
   });
 
-  it('returns true and does not navigate when user is authenticated', () => {
+  it('возвращает true и не выполняет навигацию, когда пользователь аутентифицирован', () => {
     userServiceMock.currentUser.set({ id: 1, email: 'ivan@example.com' });
 
     const injector = TestBed.inject(EnvironmentInjector);
@@ -43,3 +43,4 @@ describe('authGuard (integration)', () => {
     expect(routerMock.navigate).not.toHaveBeenCalled();
   });
 });
+

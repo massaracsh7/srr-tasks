@@ -1,10 +1,10 @@
-import { TestBed } from '@angular/core/testing';
+﻿import { TestBed } from '@angular/core/testing';
 import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { Courses } from '../../core/courses';
 
 import { Home } from './home';
 
-describe('Home', () => {
+describe('Главная страница', () => {
   let component: Home;
 
   const coursesMock = {
@@ -22,11 +22,11 @@ describe('Home', () => {
     component = runInInjectionContext(injector, () => new Home());
   });
 
-  it('should create', () => {
+  it('должен создаваться', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should request courses with empty filters by default', () => {
+  it('должен запрашивать курсы с пустыми фильтрами по умолчанию', () => {
     component.filteredCourses();
 
     expect(coursesMock.filterCourses).toHaveBeenCalledWith({
@@ -36,7 +36,7 @@ describe('Home', () => {
     });
   });
 
-  it('should request courses with selected filters', () => {
+  it('должен запрашивать курсы с выбранными фильтрами', () => {
     component.category.set('Frontend');
     component.difficulty.set('Beginner');
     component.language.set('EN');
@@ -50,3 +50,4 @@ describe('Home', () => {
     });
   });
 });
+

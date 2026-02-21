@@ -1,9 +1,9 @@
-import { TestBed } from '@angular/core/testing';
+﻿import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { Login } from './login';
 import { UserService } from '../../core/user';
 
-describe('Login (integration)', () => {
+describe('Вход (интеграция)', () => {
   let component: Login;
   let userService: UserService;
 
@@ -22,7 +22,7 @@ describe('Login (integration)', () => {
     component = new Login(userService, TestBed.inject(Router));
   });
 
-  it('logs in existing user and navigates home', () => {
+  it('выполняет вход существующего пользователя и переходит на главную', () => {
     component.email.set('ivan@example.com');
 
     component.login();
@@ -32,7 +32,7 @@ describe('Login (integration)', () => {
     expect(routerMock.navigate).toHaveBeenCalledWith(['/']);
   });
 
-  it('does not navigate and sets error for unknown user', () => {
+  it('не выполняет навигацию и устанавливает ошибку для неизвестного пользователя', () => {
     component.email.set('unknown@example.com');
 
     component.login();
@@ -42,3 +42,4 @@ describe('Login (integration)', () => {
     expect(routerMock.navigate).not.toHaveBeenCalled();
   });
 });
+

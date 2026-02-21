@@ -1,12 +1,12 @@
-import { KeyboardLessonNavDirective } from './keyboard-lesson-nav';
+﻿import { KeyboardLessonNavDirective } from './keyboard-lesson-nav';
 
-describe('KeyboardLessonNav', () => {
-  it('should create an instance', () => {
+describe('Директива KeyboardLessonNav', () => {
+  it('должен создавать экземпляр', () => {
     const directive = new KeyboardLessonNavDirective();
     expect(directive).toBeTruthy();
   });
 
-  it('should call next on ArrowRight', () => {
+  it('должен вызывать next при ArrowRight', () => {
     const directive = new KeyboardLessonNavDirective();
     const next = vi.fn();
     const back = vi.fn();
@@ -19,3 +19,4 @@ describe('KeyboardLessonNav', () => {
     expect(back).not.toHaveBeenCalled();
   });
 });
+

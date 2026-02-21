@@ -1,8 +1,8 @@
-import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
+﻿import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { CourseCard } from './course-card';
 
-describe('CourseCard', () => {
+describe('Карточка курса', () => {
   let component: CourseCard;
 
   beforeEach(() => {
@@ -11,13 +11,14 @@ describe('CourseCard', () => {
     component = runInInjectionContext(injector, () => new CourseCard());
   });
 
-  it('should create', () => {
+  it('должна создаваться', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should toggle isShown state', () => {
+  it('должна переключать состояние isShown', () => {
     expect(component.isShown()).toBe(false);
     component.toggle();
     expect(component.isShown()).toBe(true);
   });
 });
+
