@@ -1,9 +1,9 @@
-import * as CoursesActions from './courses.actions';
+﻿import * as CoursesActions from './courses.actions';
 import { initialState, coursesReducer } from './courses.reducer';
 import { selectFilteredCourses } from './courses.selectors';
 
-describe('Courses', () => {
-  it('should filter courses by category', () => {
+describe('Курсы', () => {
+  it('должен фильтровать курсы по категории', () => {
     const state = coursesReducer(
       initialState,
       CoursesActions.setFilters({ filters: { category: 'Frontend' } })
@@ -14,7 +14,7 @@ describe('Courses', () => {
     expect(result.every(c => c.category === 'Frontend')).toBe(true);
   });
 
-  it('should return empty array for non-matching filters', () => {
+  it('должен возвращать пустой массив при несовпадающих фильтрах', () => {
     const state = coursesReducer(
       initialState,
       CoursesActions.setFilters({
@@ -26,3 +26,4 @@ describe('Courses', () => {
     expect(result).toEqual([]);
   });
 });
+

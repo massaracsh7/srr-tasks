@@ -1,11 +1,11 @@
-import { EnvironmentInjector, input, runInInjectionContext } from '@angular/core';
+﻿import { EnvironmentInjector, input, runInInjectionContext } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { provideStore, Store } from '@ngrx/store';
 import { coursesReducer } from '../../core/courses/courses.reducer';
 import { Lesson } from './lesson';
 
-describe('Lesson (integration)', () => {
+describe('Урок (интеграция)', () => {
   let component: Lesson;
   let store: Store;
 
@@ -35,17 +35,17 @@ describe('Lesson (integration)', () => {
     component = runInInjectionContext(injector, () => new Lesson());
   });
 
-  it('creates component with real service graph', () => {
+  it('создает компонент с реальным графом сервисов', () => {
     expect(component).toBeTruthy();
   });
 
-  it('navigates back to course page', () => {
+  it('переходит обратно на страницу курса', () => {
     component.goBack();
 
     expect(routerMock.navigate).toHaveBeenCalledWith(['/course', '1']);
   });
 
-  it('navigates to next lesson when it exists', () => {
+  it('переходит к следующему уроку, когда он существует', () => {
     component.course.set({
       id: 1,
       lessons: [
@@ -60,3 +60,4 @@ describe('Lesson (integration)', () => {
     expect(routerMock.navigate).toHaveBeenCalledWith(['/course', 1, 2]);
   });
 });
+

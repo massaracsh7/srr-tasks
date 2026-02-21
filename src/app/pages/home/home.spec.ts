@@ -1,4 +1,4 @@
-import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
+﻿import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
@@ -25,15 +25,15 @@ describe('Home', () => {
     component = runInInjectionContext(injector, () => new Home(storeMock as unknown as Store));
   });
 
-  it('should create', () => {
+  it('должен создаваться', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize with empty courses', () => {
+  it('должен инициализироваться с пустым списком курсов', () => {
     expect(component.filteredCourses()).toEqual([]);
   });
 
-  it('should dispatch selected filters', () => {
+  it('должен диспатчить выбранные фильтры', () => {
     component.category = 'Frontend';
     component.difficulty = 'Beginner';
     component.language = 'EN';
@@ -47,3 +47,4 @@ describe('Home', () => {
     );
   });
 });
+

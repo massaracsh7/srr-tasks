@@ -1,8 +1,9 @@
-import { SafeTitlePipe } from './safe-title-pipe';
+﻿import { SafeTitlePipe } from './safe-title-pipe';
 
-describe('SafeTitlePipe', () => {
-  it('create an instance', () => {
+describe('Pipe безопасного заголовка', () => {
+  it('создает экземпляр', () => {
     const pipe = new SafeTitlePipe();
     expect(pipe).toBeTruthy();
   });
 });
+

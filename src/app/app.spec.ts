@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+﻿import { TestBed } from '@angular/core/testing';
 import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { App } from './app';
@@ -18,7 +18,7 @@ describe('App', () => {
     });
   });
 
-  it('should create the app', () => {
+  it('должен создавать приложение', () => {
     const injector = TestBed.inject(EnvironmentInjector);
     const app = runInInjectionContext(injector, () => new App());
 
@@ -26,7 +26,7 @@ describe('App', () => {
     expect((app as any).title).toBe('srr-tasks');
   });
 
-  it('should initialize translations in constructor', () => {
+  it('должен инициализировать переводы в конструкторе', () => {
     const injector = TestBed.inject(EnvironmentInjector);
     runInInjectionContext(injector, () => new App());
 
@@ -35,3 +35,4 @@ describe('App', () => {
     expect(translateServiceMock.use).toHaveBeenCalledWith('en');
   });
 });
+

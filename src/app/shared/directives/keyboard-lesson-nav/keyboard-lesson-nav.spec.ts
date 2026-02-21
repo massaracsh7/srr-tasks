@@ -1,8 +1,8 @@
-import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
+﻿import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { KeyboardLessonNavDirective } from './keyboard-lesson-nav';
 
-describe('KeyboardLessonNav', () => {
+describe('Директива клавиатурной навигации уроков', () => {
   let directive: KeyboardLessonNavDirective;
 
   beforeEach(async () => {
@@ -11,11 +11,11 @@ describe('KeyboardLessonNav', () => {
     directive = runInInjectionContext(injector, () => new KeyboardLessonNavDirective());
   });
 
-  it('should create an instance', () => {
+  it('должен создавать экземпляр', () => {
     expect(directive).toBeTruthy();
   });
 
-  it('should call next on ArrowRight', () => {
+  it('должен вызывать next при нажатии стрелки вправо', () => {
     const next = vi.fn();
     const back = vi.fn();
     (directive as any).next = next;
@@ -27,3 +27,4 @@ describe('KeyboardLessonNav', () => {
     expect(back).not.toHaveBeenCalled();
   });
 });
+
