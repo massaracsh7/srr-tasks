@@ -31,6 +31,7 @@ export class Login {
 
   email = signal('');
   errorMessage = signal('');
+  attemptedLogin = signal(false);
   currentUser = signal<null | { id: number; name: string; email: string; role: string }>(null);
 
   constructor() {
@@ -40,16 +41,24 @@ export class Login {
     );
 
     effect(() => {
-      this.currentUser.set(currentUserSignal());
+      const user = currentUserSignal();
+      this.currentUser.set(user);
 
-      if (typeof window !== 'undefined' && currentUserSignal()) {
+      if (typeof window !== 'undefined' && user) {
+        this.errorMessage.set('');
         this.router.navigate(['/']);
+        return;
+      }
+
+      if (this.attemptedLogin() && !user) {
+        this.errorMessage.set('LOGIN.ERROR_USER_NOT_FOUND');
       }
     });
   }
 
   login() {
     this.errorMessage.set('');
+    this.attemptedLogin.set(true);
     this.store.dispatch(UserActions.login({ email: this.email() }));
   }
 }
