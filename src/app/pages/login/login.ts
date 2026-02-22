@@ -55,6 +55,8 @@ export class Login {
 
     if (this.store.selectSnapshot(UserState.currentUser)) {
       this.router.navigate(['/']);
+    } else {
+      this.errorMessage.set('LOGIN.ERROR_USER_NOT_FOUND');
     }
   }
 }

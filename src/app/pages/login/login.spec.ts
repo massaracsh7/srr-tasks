@@ -38,6 +38,12 @@ describe('Вход', () => {
   });
 
   it('должен отправлять действие входа с адресом электронной почты', () => {
+    storeMock.selectSnapshot.mockReturnValueOnce({
+      id: 1,
+      name: 'Ivan Ivanov',
+      email: 'ivan@example.com',
+      role: 'student',
+    });
     component.email.set('ivan@example.com');
 
     component.login();
