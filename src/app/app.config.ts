@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 import { routes } from './app.routes';
 
 import { provideTranslateService } from '@ngx-translate/core';
@@ -29,7 +29,7 @@ export const appConfig: ApplicationConfig = {
     }),
 
 provideAnimations(),
-    provideHttpClient(),
+    provideHttpClient(withFetch()),
     provideTranslateService({
       loader: provideTranslateHttpLoader({
         prefix: '/assets/i18n/',
